@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Estado de Vehículo - Taller Hamed y Hamed</title>
+    <link rel="stylesheet" href="inicio.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="consulta.css"> 
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="inicio.html" class="logo">🛠️ Hamed y Hamed</a>
+            <nav>
+                <a href="inicio.html#servicios">Servicios</a>
+                <a href="inicio.html#nosotros">Nosotros</a>
+                    <a href="login.html" class="btn btn-secondary">Acceder al Sistema</a> 
+
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="consulta-section container">
+            <div class="form-container">
+                <h2>🔎 Consulta el Estado de tu Vehículo</h2>
+                <p>Ingresa tu RUT y la Patente del vehículo para ver los detalles de la reparación.</p>
+                <form id="estado-vehiculo-form">
+                    <div class="form-group">
+                        <label for="rut">RUT del Cliente (sin puntos ni guion):</label>
+                        <input type="text" id="rut" name="rut" required placeholder="Ej: 12345678K">
+                    </div>
+                    <div class="form-group">
+                        <label for="patente">Patente del Vehículo:</label>
+                        <input type="text" id="patente" name="patente" required placeholder="Ej: ABCD12">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Consultar Estado</button>
+                    <p id="mensaje-error" class="error-text"></p>
+                </form>
+            </div>
+
+            <div class="resultados-container hidden" id="resultados-vehiculo">
+                <h3>📊 Detalles del Servicio</h3>
+                <div id="detalle-estado">
+                    <p><strong>Vehículo:</strong> <span id="vehiculo-nombre">Toyota Corolla</span></p>
+                    <p><strong>Patente:</strong> <span id="vehiculo-patente">ABCD12</span></p>
+                    <hr>
+                    <p><strong>Diagnóstico Inicial:</strong> <span id="diagnostico">Falla en el sistema de frenos.</span></p>
+                    <p><strong>Estado Actual:</strong> <span class="status-badge" id="estado">En Reparación (50%)</span></p>
+                    <p><strong>Mecánico a Cargo:</strong> <span id="mecanico">Juan Pérez</span></p>
+                    <p><strong>Fecha de Ingreso:</strong> <span id="fecha-ingreso">15/11/2025</span></p>
+                    <p><strong>Estimación de Entrega:</strong> <span id="fecha-entrega">20/11/2025</span></p>
+                    <hr>
+                    <h4>Servicios Realizados:</h4>
+                    <ul id="servicios-realizados">
+                        <li>Revisión de discos y pastillas de freno.</li>
+                        <li>Cambio de líquido de frenos.</li>
+                    </ul>
+                </div>
+                <button class="btn btn-secondary" onclick="window.print()">Imprimir Reporte</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Taller Hamed y Hamed. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="consulta.js"></script> 
+</body>
+</html>

@@ -1,0 +1,355 @@
+:root {
+    --color-principal: #007bff; /* Azul */
+    --color-fondo: #f8f9fa; /* Gris claro */
+    --color-texto: #333;
+    --color-borde: #ddd;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Header y Navegación --- */
+.main-header {
+    background-color: var(--color-fondo);
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--color-secundario);
+    text-decoration: none;
+}
+
+nav a {
+    color: var(--color-texto);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--color-principal);
+}
+
+/* --- Botones --- */
+.btn {
+    padding: 6px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--color-principal);
+    color: var(--color-texto-claro);
+    box-shadow: 0 4px 15px rgba(58, 123, 253, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(58, 123, 253, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-principal);
+    border: 2px solid var(--color-principal);
+    padding: 6px 15px;
+    font-size: 0.9em;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-principal);
+    color: var(--color-texto-claro);
+}
+
+.btn-ingresar:hover {
+    background-color: #2a2a33;
+}
+
+/* ----------------------------------- */
+/* ESTILOS DE CONTENIDO MAIN           */
+/* ----------------------------------- */
+
+main {
+    padding: 20px 50px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.contenedor-formularios {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 25px;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    flex: 1; 
+    max-width: 45%;
+}
+
+.card h3 {
+    border-bottom: 2px solid var(--color-borde);
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.2em;
+}
+/* ----------------------------------- */
+/* ESTILOS DE LA SECCIÓN PRINCIPAL (HERO) */
+/* ----------------------------------- */
+
+.hero-section {
+    /* Color de fondo azul (oscuro, como en la imagen) */
+    background-color: #0043ff; /* Usando un azul ligeramente más oscuro que el var(--color-principal) */
+    color: white; /* Texto blanco */
+    
+    /* Padding para darle altura vertical y espacio lateral */
+    padding: 80px 50px; /* Alto padding vertical para el efecto visual */
+}
+
+/* Título pequeño */
+.hero-title-small {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+/* Descripción / Texto principal */
+.hero-description {
+    /* Eliminar márgenes predeterminados y asegurar color blanco */
+    margin: 0;
+    color: white;
+    
+    /* Tamaño de fuente grande */
+    font-size: 2em; 
+    line-height: 1.4;
+    
+    /* Espacio debajo del texto antes de los botones */
+    margin-bottom: 30px; 
+    
+    /* Ajustar el ancho máximo si es necesario para que el texto no se extienda demasiado */
+    max-width: 800px;
+}
+
+/* Contenedor de botones para gestionarlos */
+.hero-buttons {
+    display: flex;
+    gap: 20px; /* Espacio entre los dos botones */
+}
+
+/* Estilo del botón "Ver Servicios" (Botón de borde claro) */
+.btn-servicio {
+    background-color: white; /* Fondo blanco */
+    color: var(--color-principal); /* Texto azul */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+
+.btn-acceso:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Ligero hover */
+}
+/* ----------------------------------- */
+/* ESTILOS DE LA SECCIÓN DE SERVICIOS  */
+/* ----------------------------------- */
+
+.services-section {
+    padding: 70px;
+    text-align: center; /* Centra los títulos y subtítulos */
+    background-color: white;
+}
+
+.section-title {
+    font-size: 2em;
+    color: var(--color-texto);
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+/* 1. CUADRÍCULA DE SERVICIOS (Las 6 tarjetas) */
+
+.services-grid {
+display: grid; /* Cambiar a grid */
+    /* ✅ CAMBIO CLAVE: Definir 6 columnas de igual tamaño (1fr) */
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 30px; 
+    max-width: 100%; /* O el ancho máximo que desees (ej: 1800px) */
+    margin: 0 auto 50px auto;
+}
+
+.service-card {
+    /* Estilo del contenedor blanco alrededor de cada servicio */
+    flex-basis: 16.6%; /* Darle un ancho base a cada tarjeta */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    border: 1px solid var(--color-borde);
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.service-icon {
+    width: 35px; /* Tamaño del icono */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.service-name {
+    font-size: 0.9em;
+    color: var(--color-texto);
+    margin: 0;
+}
+
+/* 2. BLOQUE DE INFORMACIÓN (El área oscura) */
+
+.info-block {
+    background-color: #363636; 
+    min-height: 200px; /* Mantén esto para la altura del bloque oscuro */
+    position: relative;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 100px; /* Ya ajustamos esto en el paso anterior */
+    
+    background-image: url('imagenes/imagen-auto.png'); 
+    
+    /* CAMBIO CLAVE: Reducir el tamaño de la imagen del auto */
+    background-size: 60% auto; /* Reducido de 75% a 60% (puedes probar con 50% o 65%) */
+    
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.info-text-box {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente para el texto */
+    color: var(--color-texto);
+    padding: 15px;
+    border-radius: 4px;
+    max-width: 350px;
+    text-align: left;
+    margin-bottom: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-text-box p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.btn-more-info {
+    /* Botón CONOCE MÁS (Color marrón/oro) */
+    background-color: #bfa770; 
+    color: #363636; 
+    padding: 10px ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* CORRECCIÓN CLAVE: */
+    width: 100px;
+    /* PROPIEDADES CLAVE PARA POSICIONAR A LA DERECHA: */
+    position: absolute; /* CLAVE: Lo sacamos del flujo normal */
+    bottom: 30px; /* Distancia desde el borde inferior */
+    right: 50px; /* Distancia desde el borde derecho */
+    display: block; /* Hace que el ancho sea igual al contenido */
+    text-align: center;
+    /* Si el botón estuviera centrado en su propio div contenedor: */
+     margin: 0 auto; 
+}
+/* ----------------------------------- */
+/* ESTILOS DE FORMULARIO               */
+/* ----------------------------------- */
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+input[type="text"], 
+input[type="tel"] {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid var(--color-borde);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 25px;
+    width: 100%;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+button:hover:not([disabled]) {
+    background-color: #0056b3;
+}
+
+button[disabled] {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+.obligatorios {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.nota-vehiculo {
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
