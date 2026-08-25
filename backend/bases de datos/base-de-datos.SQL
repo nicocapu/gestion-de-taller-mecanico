@@ -60,7 +60,7 @@ CREATE TABLE Servicio (
   DescripcionProblema TEXT,
   Diagnostico TEXT,
   Estado ENUM('Pendiente', 'En reparación', 'Finalizado', 'Cancelado') DEFAULT 'Pendiente',
-  Precio DECIMAL(10,2),
+  Precio INT, 
   FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
@@ -85,3 +85,5 @@ CREATE TABLE ServicioMecanico (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+INSERT INTO Cliente (IdCliente, Nombre, Apellido, Telefono, Email) 
+VALUES (1, 'Juan', 'Pérez', '912345678', 'juan@email.com');
