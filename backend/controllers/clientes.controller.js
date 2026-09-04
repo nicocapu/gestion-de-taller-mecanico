@@ -1,25 +1,25 @@
 import pool from "../conexionDB.js"
 
-export const getAllClientes = async (req, res) => {
+export const getAllClientes = async (req, res, next) => {
   try {
     const [rows] = await pool.query("SELECT * FROM Cliente")
     res.json(rows)
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener los clientes" })
+    next(error)
   }
 }
 
-export const getClienteByRut = async (req, res) => {
+export const getClienteByRut = async (req, res, next) => {
   try {
     const [rows] = await pool.query("SELECT * FROM Cliente WHERE Rut = ?", [req.params.Rut])
     if (rows.length <= 0) return res.status(404).json({ message: "Cliente no encontrado con ese RUT" })
     res.json(rows[0])
   } catch (error) {
-    res.status(500).json({ message: "Error al buscar el cliente por RUT" })
+    next(error)
   }
 }
 
-export const createCliente = async (req, res) => {
+export const createCliente = async (req, res, next) => {
   try {
     const { Rut, Nombre, NumeroTelefonico, CorreoElectronico } = req.body
     
@@ -36,14 +36,11 @@ export const createCliente = async (req, res) => {
       CorreoElectronico,
     })
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
-      return res.status(400).json({ message: "El RUT ingresado ya está registrado" })
-    }
-    res.status(500).json({ message: "Error al crear el cliente" })
+    next(error)
   }
 }
 
-export const updateCliente = async (req, res) => {
+export const updateCliente = async (req, res, next ) => {
   try {
     const { id } = req.params
     const { Rut, Nombre, NumeroTelefonico, CorreoElectronico } = req.body
@@ -62,15 +59,12 @@ export const updateCliente = async (req, res) => {
 
     res.json({ message: "Cliente actualizado correctamente" })
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
-      return res.status(400).json({ message: "El RUT ingresado ya pertenece a otro cliente" })
-    }
-    res.status(500).json({ message: "Error al actualizar el cliente" })
+    next(error)
   }
 }
 
 
-export const deleteCliente = async (req, res) => {
+export const deleteCliente = async (req, res, next) => {
   try {
     const [result] = await pool.query("DELETE FROM Cliente WHERE Rut = ?", [req.params.Rut])
 
@@ -78,11 +72,6 @@ export const deleteCliente = async (req, res) => {
 
     res.sendStatus(204)
   } catch (error) {
-    if (error.code === "ER_ROW_IS_REFERENCED_2") {
-      return res.status(409).json({ 
-        message: "No se puede eliminar el cliente porque tiene vehículos u órdenes asociadas" 
-      })
-    }
-    res.status(500).json({ message: "Error al eliminar el cliente" })
+    next(error)
   }
 }

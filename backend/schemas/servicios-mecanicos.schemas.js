@@ -1,5 +1,5 @@
 import z from "zod"
-export const servicioSchema= z.object({
+export const servicioMecanicoSchema= z.object({
     IdServicio: z.number({
       required_error: "El IdServicio es obligatorio",
       invalid_type_error: "El IdServicio debe ser un número entero",

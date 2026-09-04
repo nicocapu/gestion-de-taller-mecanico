@@ -1,9 +1,11 @@
 import {Router} from "express";
 import {getallAutos,getAuto,createAuto,updateAuto,deleteAuto} from "../controllers/autos.controller.js";
+import { validarSchema } from "../middlewares/validarSchema.middleware.js";
+import { autoSchema } from "../schemas/autos.schemas.js";
 const router= Router();
 router.get("/Auto", getallAutos);
 router.get("/Auto/:id", getAuto);
-router.post("/Auto",createAuto);
-router.patch("/Auto/:id",updateAuto);
+router.post("/Auto",validarSchema(autoSchema),createAuto);
+router.patch("/Auto/:id",validarSchema(autoSchema.partial()),updateAuto);
 router.delete("/Auto/:Patente",deleteAuto);
 export default router;

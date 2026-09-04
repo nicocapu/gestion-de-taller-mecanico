@@ -1,7 +1,7 @@
 import pool from "../conexionDB.js"
 
 // 1. Obtener todas las asignaciones (con nombres útiles vía JOIN)
-export const getAllServicioMecanicos = async (req, res) => {
+export const getAllServicioMecanicos = async (req, res, next) => {
   try {
     const [rows] = await pool.query(`
       SELECT sm.IdServicio, sm.IdMecanico, sm.FechaAsignacion,
@@ -14,12 +14,12 @@ export const getAllServicioMecanicos = async (req, res) => {
     `)
     res.json(rows)
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener las asignaciones" })
+    next(error)
   }
 }
 
 // 2. Obtener mecánicos asignados a un servicio específico
-export const getMecanicosByServicio = async (req, res) => {
+export const getMecanicosByServicio = async (req, res, next) => {
   try {
     const { idServicio } = req.params
     const [rows] = await pool.query(`
@@ -32,12 +32,11 @@ export const getMecanicosByServicio = async (req, res) => {
 
     res.json(rows)
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener los mecánicos del servicio" })
+    next(error)
   }
 }
 
-// 3. Asignar un mecánico a un servicio
-export const assignMecanico = async (req, res) => {
+export const asignarMecanico = async (req, res, next) => {
   try {
     const { IdServicio, IdMecanico } = req.body
     await pool.query(
@@ -51,18 +50,12 @@ export const assignMecanico = async (req, res) => {
       IdMecanico
     })
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
-      return res.status(400).json({ message: "El mecánico ya está asignado a este servicio" })
-    }
-    if (error.code === "ER_NO_REFERENCED_ROW_2") {
-      return res.status(404).json({ message: "El Servicio o el Mecánico especificado no existe" })
-    }
-    res.status(500).json({ message: "Error al asignar mecánico al servicio" })
+    next(error)
   }
 }
 
 // 4. Desasignar un mecánico de un servicio
-export const removeMecanicoFromServicio = async (req, res) => {
+export const removeMecanicoFromServicio = async (req, res, next) => {
   try {
     const { idServicio, idMecanico } = req.params
     const [result] = await pool.query(
@@ -76,6 +69,28 @@ export const removeMecanicoFromServicio = async (req, res) => {
 
     res.sendStatus(204)
   } catch (error) {
-    res.status(500).json({ message: "Error al desasignar el mecánico" })
+    next(error)
   }
 }
+export const actualizarAsignacion = async (req, res, next) => {
+  try {
+    const { idServicio, idMecanico } = req.params;
+    const { FechaAsignacion } = req.body;
+
+    const [result] = await pool.query(
+      "UPDATE ServicioMecanico SET FechaAsignacion = ? WHERE IdServicio = ? AND IdMecanico = ?",
+      [FechaAsignacion, idServicio, idMecanico]
+    );
+    res.json({
+      status: "success",
+      message: "Asignación actualizada correctamente",
+      data: {
+        IdServicio: Number(idServicio),
+        IdMecanico: Number(idMecanico),
+        FechaAsignacion
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};

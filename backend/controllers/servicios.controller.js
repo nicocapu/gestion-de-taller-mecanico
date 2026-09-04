@@ -1,25 +1,25 @@
 import pool from "../conexionDB.js"
 
-export const getallServicios = async (req, res) => {
+export const getallServicios = async (req, res, next) => {
   try {
     const [rows] = await pool.query("SELECT * FROM Servicio")
     res.json(rows)
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener los servicios" })
+    next(error)
   }
 }
 
-export const getServicio = async (req, res) => {
+export const getServicio = async (req, res, next) => {
   try {
     const [rows] = await pool.query("SELECT * FROM Servicio WHERE IdServicio = ?", [req.params.id])
     if (rows.length <= 0) return res.status(404).json({ message: "Servicio no encontrado" })
     res.json(rows[0])
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener el servicio" })
+    next(error)
   }
 }
 
-export const createServicio = async (req, res) => {
+export const createServicio = async (req, res, next) => {
   try {
     const { IdCliente, IdAuto, FechaInicio, FechaTermino, DescripcionProblema, Diagnostico, Estado, Precio } = req.body
     const [rows] = await pool.query(
@@ -39,11 +39,11 @@ export const createServicio = async (req, res) => {
       Precio
     })
   } catch (error) {
-    res.status(500).json({ message: "Error al crear el servicio" })
+    next(error)
   }
 }
 
-export const updateServicio = async (req, res) => {
+export const updateServicio = async (req, res, next) => {
   try {
     const { id } = req.params
     const { IdCliente, IdAuto, FechaInicio, FechaTermino, DescripcionProblema, Diagnostico, Estado, Precio } = req.body
@@ -63,16 +63,16 @@ export const updateServicio = async (req, res) => {
     if (result.affectedRows <= 0) return res.status(404).json({ message: "Servicio no encontrado" })
     res.json({ message: "Servicio actualizado correctamente" })
   } catch (error) {
-    res.status(500).json({ message: "Error al actualizar el servicio" })
+    next(error)
   }
 }
 
-export const deleteServicio = async (req, res) => {
+export const deleteServicio = async (req, res, next) => {
   try {
     const [result] = await pool.query("DELETE FROM Servicio WHERE IdServicio = ?", [req.params.id])
     if (result.affectedRows <= 0) return res.status(404).json({ message: "Servicio no encontrado" })
     res.sendStatus(204)
   } catch (error) {
-    res.status(500).json({ message: "Error al eliminar el servicio" })
+    next(error)
   }
 }

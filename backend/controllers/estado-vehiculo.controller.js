@@ -1,5 +1,5 @@
 import pool from "../conexionDB.js"
-export const getServiciosActivos = async (req, res) => {
+export const getServiciosActivos = async (req, res, next) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -22,6 +22,6 @@ export const getServiciosActivos = async (req, res) => {
 
     res.json(rows)
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener los servicios activos" })
+    next(error)
   }
 }

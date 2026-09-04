@@ -1,9 +1,11 @@
 import {Router} from "express";
 import { getAllClientes, getClienteByRut, createCliente, updateCliente, deleteCliente } from "../controllers/clientes.controller.js";
+import { validarSchema } from "../middlewares/validarSchema.middleware.js";
+import { clienteSchema } from "../schemas/clientes.schemas.js";
 const router= Router();
-router.post("/Cliente", createCliente)
-router.get("/Cliente", getAllClientes)
-router.get("/cliente/:Rut", getClienteByRut)
-router.patch("/cliente/:id", updateCliente)
-router.delete("/cliente/:Rut", deleteCliente)
+router.post("/Cliente", validarSchema(clienteSchema), createCliente);
+router.get("/Cliente", getAllClientes);
+router.get("/cliente/:Rut", getClienteByRut);
+router.patch("/cliente/:id", validarSchema(clienteSchema.partial()), updateCliente);
+router.delete("/cliente/:Rut", deleteCliente);
 export default router;

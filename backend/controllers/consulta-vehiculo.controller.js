@@ -1,6 +1,6 @@
 import pool from "../conexionDB.js"
 
-export const getEstadoPublicoVehiculo = async (req, res) => {
+export const getEstadoPublicoVehiculo = async (req, res,next) => {
   try {
     const { rut, patente } = req.query
 
@@ -42,6 +42,6 @@ export const getEstadoPublicoVehiculo = async (req, res) => {
 
     res.json(rows[0])
   } catch (error) {
-    res.status(500).json({ message: "Error al consultar el estado del vehículo" })
+    next(error)
   }
 }
