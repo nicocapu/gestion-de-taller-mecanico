@@ -19,6 +19,6 @@ export const mecanicoSchema= z.object({
         .max(50,{message: "La contraseña no puede tener más de 50 caracteres"})
         .regex(/[A-Z]/, { message: "Debe contener al menos una letra mayúscula" })
         .regex(/[a-z]/, { message: "Debe contener al menos una letra minúscula" })
-        .regex(/[0-9]/, { message: "Debe contener al menos un número" })
-        
+        .regex(/[0-9]/, { message: "Debe contener al menos un número" }),
+    ROL: z.enum(['Mecanico', 'Administrador']).default('Mecanico')
 })

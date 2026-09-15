@@ -6,6 +6,7 @@ import ServicioMecanicoRoutes from "./routes/servicios-mecanicos.routes.js";
 import ConsultaVehiculoRoutes from "./routes/consulta-vehiculo.routes.js";
 import EstadoVehiculoRoutes from "./routes/estado-vehiculo.routes.js";
 import  {manejadorErrores} from "./middlewares/error.middleware.js";
+import SigninRoutes from "./routes/auth.routes.js";
 
 // -----------------------------
 // backend/backend.js
@@ -27,7 +28,7 @@ app.use(ServicioRoutes);
 app.use(ServicioMecanicoRoutes);
 app.use(ConsultaVehiculoRoutes);
 app.use(EstadoVehiculoRoutes);
-
+app.use(SigninRoutes);
 app.use(manejadorErrores);
 app.listen(port, () => {
   console.log(`🚀 Servidor backend ejecutándose en http://localhost:${port}`);

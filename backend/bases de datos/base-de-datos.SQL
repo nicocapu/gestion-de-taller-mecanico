@@ -45,7 +45,8 @@ CREATE TABLE Mecanico (
   Nombre VARCHAR(100) NOT NULL,
   Especialidad VARCHAR(100),
   Correo VARCHAR(100) UNIQUE,
-  Contrasenia VARCHAR(255) NOT NULL
+  Contrasenia VARCHAR(255) NOT NULL,
+  ROL ENUM('mecanico', 'admin') DEFAULT 'mecanico'
 );
 
 -- ============================
