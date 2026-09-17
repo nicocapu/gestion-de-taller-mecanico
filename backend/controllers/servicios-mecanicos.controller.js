@@ -1,6 +1,6 @@
 import pool from "../conexionDB.js"
 
-// 1. Obtener todas las asignaciones (con nombres útiles vía JOIN)
+
 export const getAllServicioMecanicos = async (req, res, next) => {
   try {
     const [rows] = await pool.query(`
@@ -18,7 +18,7 @@ export const getAllServicioMecanicos = async (req, res, next) => {
   }
 }
 
-// 2. Obtener mecánicos asignados a un servicio específico
+
 export const getMecanicosByServicio = async (req, res, next) => {
   try {
     const { idServicio } = req.params
@@ -35,6 +35,28 @@ export const getMecanicosByServicio = async (req, res, next) => {
     next(error)
   }
 }
+
+export const getServiciosByMecanico = async (req, res, next) => {
+  try {
+    // Si viene por parámetro en la ruta: /mecanicos/:idMecanico/servicios
+    // O si usas token: const idMecanico = req.user.id;
+    const { idMecanico } = req.params;
+
+    const [rows] = await pool.query(`
+      SELECT sm.FechaAsignacion,
+             s.IdServicio, s.FechaInicio, s.FechaTermino, 
+             s.DescripcionProblema, s.Diagnostico, s.Estado, s.Precio
+      FROM ServicioMecanico sm
+      INNER JOIN Servicio s ON sm.IdServicio = s.IdServicio
+      WHERE sm.IdMecanico = ?
+      ORDER BY s.FechaInicio DESC
+    `, [idMecanico]);
+
+    res.json(rows);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const asignarMecanico = async (req, res, next) => {
   try {
@@ -54,7 +76,7 @@ export const asignarMecanico = async (req, res, next) => {
   }
 }
 
-// 4. Desasignar un mecánico de un servicio
+
 export const removeMecanicoFromServicio = async (req, res, next) => {
   try {
     const { idServicio, idMecanico } = req.params
@@ -72,6 +94,7 @@ export const removeMecanicoFromServicio = async (req, res, next) => {
     next(error)
   }
 }
+
 export const actualizarAsignacion = async (req, res, next) => {
   try {
     const { idServicio, idMecanico } = req.params;
