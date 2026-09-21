@@ -1,6 +1,4 @@
-// login.js
-
-const API_LOGIN_MECANICOS_URL = 'http://localhost:3000/mecanicos/login';
+const API_LOGIN_MECANICOS_URL = 'http://localhost:3000/signin';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formLogin');
@@ -26,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(API_LOGIN_MECANICOS_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ correo, password })
+                body: JSON.stringify({ 
+                    Correo: correo, 
+                    Contrasenia: password 
+                })
             });
 
             if (!response.ok) {
@@ -39,11 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            // data: { id, nombre, correo }
-            localStorage.setItem('mecanicoActual', JSON.stringify(data));
-
-            // Redirige al sistema principal
-            window.location.href = 'index.html';
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('idMecanico', data.idMecanico);
+            window.location.href = './vista_taller_mecanico.html';
         } catch (error) {
             console.error('Error en login:', error);
             mensajeError.textContent = 'Error de conexión con el servidor.';

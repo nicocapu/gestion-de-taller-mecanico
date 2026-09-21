@@ -14,9 +14,10 @@ export const servicioSchema= z.object({
     })
     .int({ message: "El IdAuto debe ser un número entero" })
     .positive({ message: "El IdAuto debe ser un número positivo" }),
-    FechaInicio: z.date({message: "La fecha de inicio debe tener un formato válido (YYYY-MM-DD)"}),
 
-    FechaTermino: z.date({message: "La fecha de término debe tener un formato válido (YYYY-MM-DD)"})
+    FechaInicio: z.coerce.date({message: "La fecha de inicio debe tener un formato válido (YYYY-MM-DD)"}),
+
+    FechaTermino: z.coerce.date({message: "La fecha de término debe tener un formato válido (YYYY-MM-DD)"})
     .nullable()
     .optional(),
 
@@ -28,9 +29,9 @@ export const servicioSchema= z.object({
     .min(10,{message: "El diagnóstico debe tener al menos 10 caracteres"})
     .max(500,{message: "El diagnóstico no puede tener más de 500 caracteres"}),
 
-   Estado: z.enum(["Pendiente", "En Proceso", "Finalizado", "Cancelado"], {
+   Estado: z.enum(["Pendiente", "En reparación", "Finalizado", "Cancelado"], {
     errorMap: () => ({
-      message: "El estado debe ser: Pendiente, En Proceso, Finalizado o Cancelado",
+      message: "El estado debe ser: Pendiente, En reparación, Finalizado o Cancelado",
     }),
   }),
 

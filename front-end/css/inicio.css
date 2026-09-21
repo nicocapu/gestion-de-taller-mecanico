@@ -206,7 +206,7 @@ ul {
 .hero {
     position: relative;
     height: 600px;
-    background-image: url('imagenes/imagen-auto.png');
+    background-image: url('/front-end/imagenes/imagen-auto.png');
     background-size: cover;
     background-position: center;
     display: flex;

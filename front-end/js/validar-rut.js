@@ -8,10 +8,10 @@ const RUT_REGEX = /^\d{1,2}\.\d{3}\.\d{3}-[\dkK]$/;
  */
 export function validarRut(rut) {
     // PASO 1: Validación de Formato (RegEx)
-    if (!RUT_REGEX.test(rut)) {
-        console.error("Fallo: Formato de RUT incorrecto.");
-        return false;
-    }
+    //if (!RUT_REGEX.test(rut)) {
+       // console.error("Fallo: Formato de RUT incorrecto.");
+       // return false;
+   // }
 
     // --- Obtener el número y el dígito verificador ingresado ---
     // Limpia el RUT de puntos y guiones para quedarnos solo con los números y la 'K' final

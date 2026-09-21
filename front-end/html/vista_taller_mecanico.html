@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión de Taller</title>
+  <link rel="stylesheet" href="/front-end/css/estilos.css">
+  <link rel="stylesheet" href="/front-end/css/vista_taller_mecanico.css">
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container">
+      <a href="inicio.html" class="logo">🛠️ Hamed y Hamed</a>
+      <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <span id="info-mecanico-logueado" class="info-mecanico"></span>
+        <button type="button" class="btn btn-secondary" id="btnLogout">Cerrar sesión</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2>Sistema de Gestión de Taller</h2>
+
+    <div class="tabs-container">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-target="tab-registro"> Registro Rápido</button>
+        <button class="tab-btn" data-target="tab-servicios"> Asignar Servicio</button>
+        <button class="tab-btn" data-target="tab-listado"> Listado Pendiente</button>
+        <button class="tab-btn" data-target="tab-mecanicos">  Administrar Mecánicos</button>
+      </div>
+
+      <div class="tab-content">
+        <!-- TAB REGISTRO -->
+        <div id="tab-registro" class="tab-pane active">
+          <section class="contenedor-formularios">
+            <div id="seccionCliente" class="card cliente-card">
+              <h3> Registro de Cliente</h3>
+              <p class="obligatorios">Ingrese los datos del cliente. Los campos con * son obligatorios.</p>
+              <form id="formularioCliente">
+                <label for="rut_cliente">RUT *</label>
+                <input type="text" id="rut_cliente" name="rut" required placeholder="12.345.678-9">
+                <label for="nombre_cliente">Nombre *</label>
+                <input type="text" id="nombre_cliente" name="nombre" required placeholder="Juan Pérez">
+                <label for="telefono_cliente">Número Telefónico</label>
+                <input type="tel" id="telefono_cliente" name="telefono" placeholder="981234567">
+                <button type="submit" id="btnRegistrarCliente">Registrar Cliente</button>
+              </form>
+            </div>
+
+            <div id="seccionVehiculo" class="card vehiculo-card" style="display: none;">
+              <h3> Registro de Vehículo</h3>
+              <p class="obligatorios">Complete los datos del vehículo asociado al cliente registrado.</p>
+              <form id="formularioVehiculo" onsubmit="return registrarVehiculo(event)">
+                <label for="cliente_asociado">Cliente Asociado *</label>
+                <p class="nota-vehiculo" id="cliente_asociado_nombre" style="color: red;">
+                  ¡Registre un cliente primero!
+                </p>
+                <input type="hidden" id="cliente_id_hidden" name="clienteId" required>
+                <label for="patente_vehiculo">Patente *</label>
+                <input type="text" id="patente_vehiculo" name="patente" required placeholder="ABCD12">
+                <label for="modelo_vehiculo">Modelo *</label>
+                <input type="text" id="modelo_vehiculo" name="modelo" required placeholder="Toyota Corolla">
+                <label for="color_vehiculo">Color</label>
+                <input type="text" id="color_vehiculo" name="color" placeholder="Rojo">
+                <label for="anio_vehiculo">Año</label>
+                <input type="number" id="anio_vehiculo" name="anio" placeholder="2018">
+
+                <button type="submit" id="btnRegistrarVehiculo">Registrar Vehículo y Asignar Servicio</button>
+              </form>
+              <button type="button" onclick="restablecerFormularioVehiculo()">
+                Cancelar y Registrar Nuevo Cliente
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <!-- TAB SERVICIOS -->
+        <div id="tab-servicios" class="tab-pane">
+          <section class="contenedor-formularios">
+            <div id="seccionServicio" class="card servicio-card">
+              <h3>🔧 Asignación de Servicio</h3>
+              <p class="obligatorios">Seleccione el vehículo y describa el problema.</p>
+
+              <form id="formularioServicio" onsubmit="return registrarServicio(event)">
+                <input type="hidden" id="servicio_id_cliente_hidden" name="idCliente" required>
+                <input type="hidden" id="servicio_id_auto_hidden" name="idAuto" required>
+
+                <label for="select_auto">Seleccionar Vehículo *</label>
+                <select id="select_auto" required onchange="actualizarClienteServicio()">
+                  <option value="">Cargando vehículos...</option>
+                </select>
+
+                <p class="nota-vehiculo" id="cliente_asociado_servicio" style="color: blue;">
+                  Cliente asociado: N/A
+                </p>
+
+                <label for="descripcion_problema">Descripción del Problema *</label>
+                <textarea id="descripcion_problema" name="descripcionProblema" required rows="4"
+                  placeholder="Ej: El motor hace un ruido extraño al arrancar."></textarea>
+
+                <label for="diagnostico_inicial">Diagnóstico Inicial</label>
+                <textarea id="diagnostico_inicial" name="diagnostico" rows="2"
+                  placeholder="Opcional: Evaluación rápida del mecánico."></textarea>
+
+                <label for="precio_servicio">Precio Estimado (Opcional)</label>
+                <input type="text" id="precio_servicio" name="precio" placeholder="Ej: 150000"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                <label for="estado_servicio">Estado Inicial *</label>
+                <select id="estado_servicio" name="estado" required>
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="En Diagnostico">En Diagnóstico</option>
+                  <option value="En Reparacion">En Reparación</option>
+                  <option value="Finalizado">Finalizado</option>
+                </select>
+
+                <label for="filtro_especialidad">Filtrar por Especialidad:</label>
+                <select id="filtro_especialidad">
+                  <option value="Todas">-- Todas las especialidades --</option>
+                  <option value="General">General</option>
+                  <option value="Frenos">Frenos</option>
+                  <option value="Motor">Motor</option>
+                  <option value="Electricidad">Electricidad</option>
+                </select>
+
+                <label for="selectMecanicoAsignar">Asignar Mecánico *</label>
+                <select id="selectMecanicoAsignar" name="mecanicoAsignado" required>
+                  <option value="">Cargando mecánicos...</option>
+                </select>
+
+                <button type="submit" id="btnRegistrarServicio">Asignar Servicio</button>
+              </form>
+
+              <button type="button" onclick="restablecerFormularioServicio()">
+                Cancelar y Volver al Inicio
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <!-- TAB LISTADO -->
+        <div id="tab-listado" class="tab-pane">
+          <section class="listado">
+            <h2>📋 Servicios Pendientes de Asignación</h2>
+            <p>Lista de todos los trabajos que requieren atención.</p>
+            <table id="tablaServicios">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Fecha Ingreso</th>
+                  <th>Cliente (RUT)</th>
+                  <th>Vehículo (Patente)</th>
+                  <th>Problema</th>
+                  <th>Precio Est.</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="8">Presiona el botón "📋 Listado Pendiente" para cargar los datos.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div id="seccionAsignacion" class="card asignacion-card">
+              <h3>🔧 Asignar Mecánico al Servicio #<span id="servicioIdAsignar">N/A</span></h3>
+              <p>Asigne un técnico responsable para iniciar el diagnóstico o la reparación.</p>
+
+              <form id="formularioAsignacion" onsubmit="return asignarMecanicoAServicio(event)">
+                <input type="hidden" id="servicio_id_a_asignar" name="servicioId">
+
+                <label for="select_mecanico">Seleccionar Mecánico *</label>
+                <select id="select_mecanico" name="mecanicoId" required>
+                  <option value="">Cargando mecánicos...</option>
+                </select>
+
+                <button type="submit" id="btnAsignarMecanico">Confirmar Asignación</button>
+                <button type="button" onclick="cancelarAsignacion()" class="btn-cancel">Cancelar</button>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <!-- TAB MECÁNICOS -->
+        <div id="tab-mecanicos" class="tab-pane">
+          <section class="contenedor-formularios">
+            <div class="card mecanico-card">
+              <h3>➕ Registrar Nuevo Mecánico</h3>
+              <p class="obligatorios">
+                Ingrese los datos del nuevo mecánico. Todos los campos son obligatorios.
+              </p>
+
+              <form id="formularioMecanico">
+                <label for="nombre_mecanico">Nombre Completo *</label>
+                <input type="text" id="nombre_mecanico" name="nombre" required placeholder="Pedro Araya">
+
+                <label for="correo_mecanico">Correo Electrónico *</label>
+                <input type="email" id="correo_mecanico" name="correo" required placeholder="pedro.araya@taller.cl">
+
+                <label for="password_mecanico">Contraseña *</label>
+                <input type="password" id="password_mecanico" name="password" required placeholder="Contraseña Segura">
+                <label for="especialidad_mecanico">Especialidad *</label>
+                <select id="especialidad_mecanico" name="especialidad" required>
+                  <option value="">Seleccione una especialidad</option>
+                  <option value="General">General</option>
+                  <option value="Frenos">Frenos</option>
+                  <option value="Motor">Motor</option>
+                  <option value="Electricidad">Electricidad</option>
+                </select>
+
+                <button type="submit" id="btnRegistrarMecanico">Agregar Mecánico</button>
+              </form>
+            </div>
+          </section>
+
+          <section class="listado listado-mecanicos">
+            <div class="card" style="width: 980px; max-width: 90%; margin: 20px auto;">
+              <h3>🧑‍🔧 Lista de Mecánicos Registrados</h3>
+              <table id="tablaMecanicos">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Servicios Activos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="4">Presiona la pestaña para cargar los datos.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/front-end/js/validar-rut.js"></script>
+  <script type="module" src="/front-end/js/tabs.js"></script>
+  <script type="module" src="/front-end/js/conexion.js"></script>
+  <script src="/front-end/js/registrar-mecanico.js"></script>
+  <script>
+  (function () {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Debe iniciar sesión como mecánico para usar el sistema.");
+      window.location.href = "./login.html";
+      return;
+    }
+
+    const btnLogout = document.getElementById("btnLogout");
+    if (btnLogout) {
+      btnLogout.addEventListener("click", function () {
+        if (confirm("¿Desea cerrar sesión?")) {
+          localStorage.removeItem("token");
+          window.location.href = "./login.html";
+        }
+      });
+    }
+  })();
+</script>
+</body>
+</html>

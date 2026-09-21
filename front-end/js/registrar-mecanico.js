@@ -1,10 +1,7 @@
-// frontend/registrar-mecanico.js
 
-const API_MECANICOS_URL = 'http://localhost:3000/mecanicos';
+const API_MECANICOS_URL = 'http://localhost:3000/Mecanico';
 
-// =================================================================
-// REGISTRAR MECÁNICO (POST)
-// =================================================================
+
 document.getElementById('formularioMecanico').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -12,8 +9,10 @@ document.getElementById('formularioMecanico').addEventListener('submit', async f
     const nombre = document.getElementById('nombre_mecanico').value.trim();
     const correo = document.getElementById('correo_mecanico').value.trim();
     const password = document.getElementById('password_mecanico').value.trim();
+    const especialidad = document.getElementById('especialidad_mecanico').value;
+    const token = localStorage.getItem('token');
 
-    if (!nombre || !correo || !password) {
+    if (!nombre || !correo || !password || !especialidad) {
         alert("Todos los campos son obligatorios");
         return;
     }
@@ -21,12 +20,19 @@ document.getElementById('formularioMecanico').addEventListener('submit', async f
     btn.disabled = true;
     btn.textContent = "Guardando...";
 
-    const datosMecanico = { nombre, correo, password };
+    const datosMecanico = { 
+        Nombre: nombre,
+        Correo: correo,
+        Contrasenia: password,
+        Especialidad: especialidad
+    };
 
     try {
         const response = await fetch(API_MECANICOS_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+                        'x-access-token': token
+             },
             body: JSON.stringify(datosMecanico)
         });
 
@@ -49,9 +55,6 @@ document.getElementById('formularioMecanico').addEventListener('submit', async f
     }
 });
 
-// =================================================================
-// CARGAR TABLA DE MECÁNICOS (GET)
-// =================================================================
 async function cargarListaMecanicos() {
     const tbody = document.querySelector('#tablaMecanicos tbody');
     tbody.innerHTML = '<tr><td colspan="4">Cargando...</td></tr>';
@@ -80,9 +83,6 @@ async function cargarListaMecanicos() {
     }
 }
 
-// =================================================================
-// CARGAR SELECTS (Desplegables) DE MECÁNICOS
-// =================================================================
 async function cargarOpcionesMecanicos() {
     const selectRegistro = document.getElementById('selectMecanicoAsignar');
     const selectListado = document.getElementById('select_mecanico');
@@ -116,34 +116,4 @@ async function cargarOpcionesMecanicos() {
     }
 }
 
-// =================================================================
-// GENERADOR DE CLAVE SEGURA PARA EL FORM DE MECÁNICOS
-// =================================================================
-function generarClaveSegura(longitud = 10) {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%&*';
-    let clave = '';
-    for (let i = 0; i < longitud; i++) {
-        const index = Math.floor(Math.random() * chars.length);
-        clave += chars.charAt(index);
-    }
-    return clave;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const btnGen = document.getElementById('btnGenerarClave');
-    const inputPass = document.getElementById('password_mecanico');
-    const txtClave = document.getElementById('claveGeneradaTexto');
-
-    if (btnGen && inputPass) {
-        btnGen.addEventListener('click', () => {
-            const clave = generarClaveSegura(10);
-            inputPass.value = clave;
-            if (txtClave) {
-                txtClave.textContent = `Clave sugerida: ${clave}`;
-            } else {
-                alert(`Clave sugerida: ${clave}`);
-            }
-        });
-    }
-});
 

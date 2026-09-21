@@ -14,7 +14,4 @@ export const servicioMecanicoSchema= z.object({
     })
     .int({ message: "El IdAuto debe ser un número entero" })
     .positive({ message: "El IdAuto debe ser un número positivo" }),
-
-    FechaInicio: z.date({message: "La fecha de inicio debe tener un formato válido (YYYY-MM-DD)"})
-    
 })

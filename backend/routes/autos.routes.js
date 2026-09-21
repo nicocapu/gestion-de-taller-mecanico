@@ -1,11 +1,12 @@
 import {Router} from "express";
 import {getallAutos,getAuto,createAuto,updateAuto,deleteAuto} from "../controllers/autos.controller.js";
 import { validarSchema } from "../middlewares/validarSchema.middleware.js";
+import { verificarToken, verificarRol } from "../middlewares/verificarToken.middleware.js";
 import { autoSchema } from "../schemas/autos.schemas.js";
 const router= Router();
-router.get("/Auto", getallAutos);
-router.get("/Auto/:id", getAuto);
-router.post("/Auto",validarSchema(autoSchema),createAuto);
-router.patch("/Auto/:id",validarSchema(autoSchema.partial()),updateAuto);
-router.delete("/Auto/:Patente",deleteAuto);
+router.get("/Auto",verificarToken, getallAutos);
+router.get("/Auto/:id", verificarToken, getAuto);
+router.post("/Auto", verificarToken, validarSchema(autoSchema), createAuto);
+router.patch("/Auto/:id", verificarToken, validarSchema(autoSchema.partial()), updateAuto);
+router.delete("/Auto/:Patente", verificarToken, deleteAuto);
 export default router;

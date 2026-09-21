@@ -1,0 +1,138 @@
+ .contenedor-formularios {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 480px;
+      max-width: 90%;
+      flex: none;
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .tabs-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .tab-buttons {
+      display: flex;
+      border-bottom: 2px solid #ddd;
+      background-color: #f7f7f7;
+      border-radius: 8px 8px 0 0;
+    }
+    .tab-btn {
+      flex-grow: 1;
+      padding: 15px 20px;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s;
+      color: #555;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-btn.active {
+      color: #007bff;
+      background-color: #fff;
+      border-bottom: 3px solid #007bff;
+    }
+    .tab-pane {
+      padding: 20px;
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    #tab-registro .contenedor-formularios {
+      justify-content: space-around;
+    }
+    #tablaServicios, #tablaMecanicos {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+    #tablaServicios th, #tablaServicios td,
+    #tablaMecanicos th, #tablaMecanicos td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    #tablaServicios th, #tablaMecanicos th {
+      background-color: #f2f2f2;
+    }
+    #seccionAsignacion {
+      margin-top: 30px;
+      display: none;
+    }
+    #seccionAsignacion button[type="submit"] {
+      background-color: #007bff;
+      margin-right: 10px;
+    }
+    #seccionAsignacion button {
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #seccionAsignacion select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #formularioMecanico label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    #formularioMecanico input[type="text"],
+    #formularioMecanico input[type="email"],
+    #formularioMecanico input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    #formularioMecanico button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    #formularioMecanico button:hover {
+      background-color: #218838;
+    }
+    .info-mecanico {
+      font-size: 0.9em;
+      margin-right: 15px;
+    }
+    .hidden {
+  display: none !important;
+}
+
+.status-ok {
+  color: #28a745;
+}
+
+.status-alert {
+  color: #dc3545;
+}

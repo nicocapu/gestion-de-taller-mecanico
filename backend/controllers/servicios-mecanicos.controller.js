@@ -38,16 +38,26 @@ export const getMecanicosByServicio = async (req, res, next) => {
 
 export const getServiciosByMecanico = async (req, res, next) => {
   try {
-    // Si viene por parámetro en la ruta: /mecanicos/:idMecanico/servicios
-    // O si usas token: const idMecanico = req.user.id;
+
     const { idMecanico } = req.params;
 
     const [rows] = await pool.query(`
-      SELECT sm.FechaAsignacion,
-             s.IdServicio, s.FechaInicio, s.FechaTermino, 
-             s.DescripcionProblema, s.Diagnostico, s.Estado, s.Precio
+      SELECT 
+        s.IdServicio,
+        s.FechaInicio,
+        s.FechaTermino,
+        s.DescripcionProblema,
+        s.Diagnostico,
+        s.Estado,
+        s.Precio,
+        c.Rut AS RutCliente,
+        c.Nombre AS NombreCliente,
+        a.Patente,
+        a.Modelo
       FROM ServicioMecanico sm
       INNER JOIN Servicio s ON sm.IdServicio = s.IdServicio
+      INNER JOIN Auto a ON s.IdAuto = a.IdAuto
+      INNER JOIN Cliente c ON s.IdCliente = c.IdCliente
       WHERE sm.IdMecanico = ?
       ORDER BY s.FechaInicio DESC
     `, [idMecanico]);

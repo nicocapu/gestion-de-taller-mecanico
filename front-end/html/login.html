@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso Mecánicos - Taller Hamed y Hamed</title>
+    <link rel="stylesheet" href="/front-end/css/inicio.css">
+    <link rel="stylesheet" href="/front-end/css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <img src="/front-end/imagenes/logo-hamed-y-hamed-negro.png" alt="Hamed & Hamed Logo" class="logo-img">
+            <nav>
+                <a href="/front-end/index.html#servicios">Servicios</a>
+                <a href="/front-end/index.html#contacto">Contacto</a>
+                <a href="/front-end/index.html" class="btn-volver">Volver al inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <h2>Ingreso de Mecánicos</h2>
+            <p>Ingrese con su correo corporativo y clave asignada.</p>
+
+            <form id="formLogin">
+                <div class="form-group">
+                    <label for="correo_login">Correo</label>
+                    <input type="email" id="correo_login" required placeholder="ej: Jperez@hamed.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password_login">Contraseña</label>
+                    <input type="password" id="password_login" required
+                        placeholder="Clave entregada por el administrador">
+                </div>
+
+                <button type="submit" id="btnLogin" class="btn-login">Ingresar</button>
+                <p id="mensaje-error-login" class="error-text"></p>
+                <p class="info-text">Si olvidó su clave, solicítela al administrador del sistema.</p>
+            </form>
+        </div>
+    </main>
+
+    <script src="/front-end/js/login.js"></script>
+</body>
+
+</html>

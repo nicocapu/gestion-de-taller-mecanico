@@ -5,10 +5,8 @@ export const mecanicoSchema= z.object({
        .min(3,{message: "El nombre debe tener al menos 3 caracteres"})
        .max(50,{message: "El nombre no puede tener más de 50 caracteres"})
        .regex(/^[A-ZÁÉÍÓÚÑÜ\s]+$/,{message: "El nombre solo puede contener letras y espacios"}),
-    Especialidad: z.string({required_error: "La especialidad es obligatoria"})
-       .toUpperCase()
-       .min(3,{message: "La especialidad debe tener al menos 3 caracteres"})
-       .max(50,{message: "La especialidad no puede tener más de 50 caracteres"}),
+    Especialidad: z.enum(['General', 'Frenos', 'Motor', 'Electricidad'], 
+        {required_error: "La especialidad es obligatoria"}),
     Correo: z.email({message: "El correo electrónico debe tener un formato válido"})
         .trim()
         .toLowerCase()
@@ -20,5 +18,5 @@ export const mecanicoSchema= z.object({
         .regex(/[A-Z]/, { message: "Debe contener al menos una letra mayúscula" })
         .regex(/[a-z]/, { message: "Debe contener al menos una letra minúscula" })
         .regex(/[0-9]/, { message: "Debe contener al menos un número" }),
-    ROL: z.enum(['Mecanico', 'Administrador']).default('Mecanico')
+    ROL: z.enum(['mecanico', 'admin']).default('mecanico')
 })

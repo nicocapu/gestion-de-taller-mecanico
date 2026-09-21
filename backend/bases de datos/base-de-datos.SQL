@@ -43,7 +43,7 @@ CREATE TABLE Auto (
 CREATE TABLE Mecanico (
   IdMecanico INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(100) NOT NULL,
-  Especialidad VARCHAR(100),
+  Especialidad Enum('General', 'Frenos', 'Motor', 'Electricidad') NOT NULL,
   Correo VARCHAR(100) UNIQUE,
   Contrasenia VARCHAR(255) NOT NULL,
   ROL ENUM('mecanico', 'admin') DEFAULT 'mecanico'

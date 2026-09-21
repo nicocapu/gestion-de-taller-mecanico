@@ -1,397 +1,357 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Gestión de Taller</title>
-  <link rel="stylesheet" href="estilos.css">
-  <style>
-    .contenedor-formularios {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .card {
-      width: 480px;
-      max-width: 90%;
-      flex: none;
-      margin: 10px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    .tabs-container {
-      max-width: 1000px;
-      margin: 30px auto;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .tab-buttons {
-      display: flex;
-      border-bottom: 2px solid #ddd;
-      background-color: #f7f7f7;
-      border-radius: 8px 8px 0 0;
-    }
-    .tab-btn {
-      flex-grow: 1;
-      padding: 15px 20px;
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s;
-      color: #555;
-      border-bottom: 3px solid transparent;
-    }
-    .tab-btn.active {
-      color: #007bff;
-      background-color: #fff;
-      border-bottom: 3px solid #007bff;
-    }
-    .tab-pane {
-      padding: 20px;
-      display: none;
-    }
-    .tab-pane.active {
-      display: block;
-    }
-    #tab-registro .contenedor-formularios {
-      justify-content: space-around;
-    }
-    #tablaServicios, #tablaMecanicos {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      font-size: 0.9em;
-    }
-    #tablaServicios th, #tablaServicios td,
-    #tablaMecanicos th, #tablaMecanicos td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
-    #tablaServicios th, #tablaMecanicos th {
-      background-color: #f2f2f2;
-    }
-    #seccionAsignacion {
-      margin-top: 30px;
-      display: none;
-    }
-    #seccionAsignacion button[type="submit"] {
-      background-color: #007bff;
-      margin-right: 10px;
-    }
-    #seccionAsignacion button {
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    #seccionAsignacion select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    #formularioMecanico label {
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    #formularioMecanico input[type="text"],
-    #formularioMecanico input[type="email"],
-    #formularioMecanico input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    #formularioMecanico button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
-    }
-    #formularioMecanico button:hover {
-      background-color: #218838;
-    }
-    .info-mecanico {
-      font-size: 0.9em;
-      margin-right: 15px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamed y Hamed | Servicio Automotriz Profesional</title>
+    <link rel="stylesheet" href="/front-end/CSS/inicio.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-
-  <header class="main-header">
-    <div class="container">
-      <a href="inicio.html" class="logo">🛠️ Hamed y Hamed</a>
-      <nav>
-        <a href="#servicios">Servicios</a>
-        <a href="#nosotros">Nosotros</a>
-        <span id="info-mecanico-logueado" class="info-mecanico"></span>
-        <button type="button" class="btn btn-secondary" id="btnLogout">Cerrar sesión</button>
-      </nav>
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone-alt"></i> +56 9 6559 1475</span>
+                <span><i class="fas fa-envelope"></i> contacto@hamedyhamed.cl</span>
+                <span><i class="fas fa-clock"></i> Lun - Vie: 9:00 - 18:00 / Sáb: 9:00 - 13:00</span>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main>
-    <h2>Sistema de Gestión de Taller</h2>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="./imagenes/logo-hamed-y-hamed-negro.png" alt="Hamed & Hamed Logo" class="logo-img">
+            </a>
+            <nav class="main-nav">
+                <a href="#inicio" class="nav-link">Inicio</a>
+                <a href="#servicios" class="nav-link">Servicios</a>
+                <a href="#productos" class="nav-link">Productos</a>
+                <a href="#nosotros" class="nav-link">Nosotros</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
+                <a href="/front-end/html/login.html" class="btn btn-primary btn-login">Acceso Mecánicos</a>
 
-    <div class="tabs-container">
-      <div class="tab-buttons">
-        <button class="tab-btn active" data-target="tab-registro"> Registro Rápido</button>
-        <button class="tab-btn" data-target="tab-servicios"> Asignar Servicio</button>
-        <button class="tab-btn" data-target="tab-listado"> Listado Pendiente</button>
-        <button class="tab-btn" data-target="tab-mecanicos">  Administrar Mecánicos</button>
-      </div>
-
-      <div class="tab-content">
-        <!-- TAB REGISTRO -->
-        <div id="tab-registro" class="tab-pane active">
-          <section class="contenedor-formularios">
-            <div id="seccionCliente" class="card cliente-card">
-              <h3> Registro de Cliente</h3>
-              <p class="obligatorios">Ingrese los datos del cliente. Los campos con * son obligatorios.</p>
-              <form id="formularioCliente">
-                <label for="rut_cliente">RUT *</label>
-                <input type="text" id="rut_cliente" name="rut" required placeholder="12.345.678-9">
-                <label for="nombre_cliente">Nombre *</label>
-                <input type="text" id="nombre_cliente" name="nombre" required placeholder="Juan Pérez">
-                <label for="telefono_cliente">Número Telefónico</label>
-                <input type="tel" id="telefono_cliente" name="telefono" placeholder="981234567">
-                <button type="submit" id="btnRegistrarCliente">Registrar Cliente</button>
-              </form>
-            </div>
-
-            <div id="seccionVehiculo" class="card vehiculo-card" style="display: none;">
-              <h3> Registro de Vehículo</h3>
-              <p class="obligatorios">Complete los datos del vehículo asociado al cliente registrado.</p>
-              <form id="formularioVehiculo" onsubmit="return registrarVehiculo(event)">
-                <label for="cliente_asociado">Cliente Asociado *</label>
-                <p class="nota-vehiculo" id="cliente_asociado_nombre" style="color: red;">
-                  ¡Registre un cliente primero!
-                </p>
-                <input type="hidden" id="cliente_id_hidden" name="clienteId" required>
-                <label for="patente_vehiculo">Patente *</label>
-                <input type="text" id="patente_vehiculo" name="patente" required placeholder="ABCD12">
-                <label for="modelo_vehiculo">Modelo *</label>
-                <input type="text" id="modelo_vehiculo" name="modelo" required placeholder="Toyota Corolla">
-                <label for="color_vehiculo">Color</label>
-                <input type="text" id="color_vehiculo" name="color" placeholder="Rojo">
-                <label for="anio_vehiculo">Año</label>
-                <input type="number" id="anio_vehiculo" name="anio" placeholder="2018">
-
-                <button type="submit" id="btnRegistrarVehiculo">Registrar Vehículo y Asignar Servicio</button>
-              </form>
-              <button type="button" onclick="restablecerFormularioVehiculo()">
-                Cancelar y Registrar Nuevo Cliente
-              </button>
-            </div>
-          </section>
+            </nav>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
         </div>
+    </header>
 
-        <!-- TAB SERVICIOS -->
-        <div id="tab-servicios" class="tab-pane">
-          <section class="contenedor-formularios">
-            <div id="seccionServicio" class="card servicio-card">
-              <h3>🔧 Asignación de Servicio</h3>
-              <p class="obligatorios">Seleccione el vehículo y describa el problema.</p>
-
-              <form id="formularioServicio" onsubmit="return registrarServicio(event)">
-                <input type="hidden" id="servicio_id_cliente_hidden" name="idCliente" required>
-                <input type="hidden" id="servicio_id_auto_hidden" name="idAuto" required>
-
-                <label for="select_auto">Seleccionar Vehículo *</label>
-                <select id="select_auto" required onchange="actualizarClienteServicio()">
-                  <option value="">Cargando vehículos...</option>
-                </select>
-
-                <p class="nota-vehiculo" id="cliente_asociado_servicio" style="color: blue;">
-                  Cliente asociado: N/A
-                </p>
-
-                <label for="descripcion_problema">Descripción del Problema *</label>
-                <textarea id="descripcion_problema" name="descripcionProblema" required rows="4"
-                  placeholder="Ej: El motor hace un ruido extraño al arrancar."></textarea>
-
-                <label for="diagnostico_inicial">Diagnóstico Inicial</label>
-                <textarea id="diagnostico_inicial" name="diagnostico" rows="2"
-                  placeholder="Opcional: Evaluación rápida del mecánico."></textarea>
-
-                <label for="precio_servicio">Precio Estimado (Opcional)</label>
-                <input type="text" id="precio_servicio" name="precio" placeholder="Ej: 150000"
-                  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-                <label for="estado_servicio">Estado Inicial *</label>
-                <select id="estado_servicio" name="estado" required>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="En Diagnostico">En Diagnóstico</option>
-                  <option value="En Reparacion">En Reparación</option>
-                  <option value="Finalizado">Finalizado</option>
-                </select>
-
-                <label for="selectMecanicoAsignar">Asignar Mecánico *</label>
-                <select id="selectMecanicoAsignar" name="mecanicoAsignado" required>
-                  <option value="">Cargando mecánicos...</option>
-                </select>
-
-                <button type="submit" id="btnRegistrarServicio">Asignar Servicio</button>
-              </form>
-
-              <button type="button" onclick="restablecerFormularioServicio()">
-                Cancelar y Volver al Inicio
-              </button>
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <span class="hero-badge">Expertos en Mecánica Integral</span>
+                <h1>Cuidamos tu Vehículo con <br>Pasión y Profesionalismo</h1>
+                <p>Diagnóstico avanzado, mantenimiento preventivo y reparaciones garantizadas. La mejor tecnología para
+                    tu automóvil.</p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary btn-lg">Nuestros Servicios</a>
+                    <a href="#contacto" class="btn btn-outline btn-lg">Agendar Cita</a>
+                </div>
             </div>
-          </section>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="icon-box">
+                            <i class="fas fa-tools nav"></i>
+                        </div>
+                        <h3>Tecnología de Punta</h3>
+                        <p>Equipamiento de diagnóstico de última generación para todas las marcas.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-box">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>Garantía Total</h3>
+                        <p>Respaldamos cada reparación con nuestra garantía de satisfacción.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-box">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Atención Rápida</h3>
+                        <p>Optimizamos nuestros tiempos para que vuelvas a la ruta cuanto antes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="services-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle">Lo que hacemos</span>
+                    <h2 class="section-title">Nuestros Servicios</h2>
+                    <div class="separator"></div>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car-crash"></i>
+                        </div>
+                        <h3>Diagnóstico Computarizado</h3>
+                        <p>Análisis completo de los sistemas electrónicos de tu vehículo.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Mecánica General</h3>
+                        <p>Reparación de motor, frenos, suspensión y dirección.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-oil-can"></i>
+                        </div>
+                        <h3>Lubricación y Filtros</h3>
+                        <p>Cambios de aceite con productos de alta calidad y filtros originales.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3>Aire Acondicionado</h3>
+                        <p>Carga, limpieza y reparación de sistemas de climatización.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car-battery"></i>
+                        </div>
+                        <h3>Sistema Eléctrico</h3>
+                        <p>Revisión de baterías, alternadores y sistemas de arranque.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Afinamiento</h3>
+                        <p>Optimización del rendimiento y consumo de combustible.</p>
+                        <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="productos" class="products-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle">Tienda</span>
+                    <h2 class="section-title">Repuestos y Accesorios</h2>
+                    <div class="separator"></div>
+                </div>
+
+                <div class="products-grid">
+                    <!-- Producto 1 -->
+                    <div class="product-card">
+                        <div class="product-badge">Oferta</div>
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Aceite+Sintetico" alt="Aceite Sintético">
+                            <div class="product-overlay">
+                                <button class="btn btn-light"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-light"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Lubricantes</div>
+                            <h3>Aceite Sintético Premium 5W-30</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="price">$45.990</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Filtro+Aire" alt="Filtro de Aire">
+                            <div class="product-overlay">
+                                <button class="btn btn-light"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-light"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Filtros</div>
+                            <h3>Kit de Filtros Original</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <p class="price">$25.000</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Bateria" alt="Batería">
+                            <div class="product-overlay">
+                                <button class="btn btn-light"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-light"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Electricidad</div>
+                            <h3>Batería Alto Rendimiento</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="price">$89.990</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="product-card">
+                        <div class="product-badge new">Nuevo</div>
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Frenos" alt="Pastillas de Freno">
+                            <div class="product-overlay">
+                                <button class="btn btn-light"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-light"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Frenos</div>
+                            <h3>Pastillas de Freno Cerámicas</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="price">$35.500</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="#" class="btn btn-outline-dark">Ver todos los productos</a>
+                </div>
+            </div>
+        </section>
+
+    
+        <section id="nosotros" class="about-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Quiénes Somos</h2>
+                    <div class="separator"></div>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-content">
+                        <p>Somos una empresa que cuenta con una propuesta de valor para el sector de la mecánica
+                            automotriz
+                            en Chile, basada en la <strong>transparencia, confianza y cercanía</strong> con el cliente.
+                        </p>
+                        <p>En Hamed y Hamed nos basamos en los <strong>PRINCIPIOS, VALORES y PERSONAS</strong>,
+                            entendiendo
+                            sus reales necesidades y asesorándolos con atención de calidad. Nuestro taller se
+                            especializa en
+                            multimarca, el cual ofrece servicios automotrices con tecnología de alta gama.</p>
+                        <ul class="about-list">
+                            <li><i class="fas fa-check-circle"></i> Transparencia absoluta</li>
+                            <li><i class="fas fa-check-circle"></i> Tecnología avanzada</li>
+                            <li><i class="fas fa-check-circle"></i> Atención personalizada</li>
+                        </ul>
+                        <p>Contamos con infraestructura adecuada para las necesidades del vehículo.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="/front-end/imagenes/mejorar-taller-mecanico.jpg" alt="Taller Hamed y Hamed">
+                        <div class="image-border"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Tu auto necesita atención?</h2>
+                    <p>Agenda tu hora hoy mismo y deja tu vehículo en manos de expertos.</p>
+                    <a href="#contacto" class="btn btn-light btn-lg">Contactar Ahora</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-widget">
+                        <h3>Hamed & Hamed</h3>
+                        <p>Somos un taller mecánico comprometido con la calidad y la satisfacción de nuestros clientes.
+                            Años de experiencia nos avalan.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-widget">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="#inicio">Inicio</a></li>
+                            <li><a href="#servicios">Servicios</a></li>
+                            <li><a href="#productos">Productos</a></li>
+                            <li><a href="#nosotros">Nosotros</a></li>
+                            <li><a href="index.html">Acceso Sistema</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-widget">
+                        <h3>Servicios</h3>
+                        <ul>
+                            <li><a href="#">Diagnóstico</a></li>
+                            <li><a href="#">Mecánica General</a></li>
+                            <li><a href="#">Electricidad</a></li>
+                            <li><a href="#">Frenos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-widget">
+                        <h3>Contacto</h3>
+                        <ul class="contact-list">
+                            <li><i class="fas fa-map-marker-alt"></i> Balmaceda 799, Buin.</li>
+                            <li><i class="fas fa-phone"></i> +56 9 6559 1475</li>
+                            <li><i class="fas fa-envelope"></i> contacto@hamedyhamed.cl</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- TAB LISTADO -->
-        <div id="tab-listado" class="tab-pane">
-          <section class="listado">
-            <h2>📋 Servicios Pendientes de Asignación</h2>
-            <p>Lista de todos los trabajos que requieren atención.</p>
-            <table id="tablaServicios">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Fecha Ingreso</th>
-                  <th>Cliente (RUT)</th>
-                  <th>Vehículo (Patente)</th>
-                  <th>Problema</th>
-                  <th>Precio Est.</th>
-                  <th>Estado</th>
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="8">Presiona el botón "📋 Listado Pendiente" para cargar los datos.</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div id="seccionAsignacion" class="card asignacion-card">
-              <h3>🔧 Asignar Mecánico al Servicio #<span id="servicioIdAsignar">N/A</span></h3>
-              <p>Asigne un técnico responsable para iniciar el diagnóstico o la reparación.</p>
-
-              <form id="formularioAsignacion" onsubmit="return asignarMecanicoAServicio(event)">
-                <input type="hidden" id="servicio_id_a_asignar" name="servicioId">
-
-                <label for="select_mecanico">Seleccionar Mecánico *</label>
-                <select id="select_mecanico" name="mecanicoId" required>
-                  <option value="">Cargando mecánicos...</option>
-                </select>
-
-                <button type="submit" id="btnAsignarMecanico">Confirmar Asignación</button>
-                <button type="button" onclick="cancelarAsignacion()" class="btn-cancel">Cancelar</button>
-              </form>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Taller Hamed y Hamed. Todos los derechos reservados.</p>
             </div>
-          </section>
         </div>
-
-        <!-- TAB MECÁNICOS -->
-        <div id="tab-mecanicos" class="tab-pane">
-          <section class="contenedor-formularios">
-            <div class="card mecanico-card">
-              <h3>➕ Registrar Nuevo Mecánico</h3>
-              <p class="obligatorios">
-                Ingrese los datos del nuevo mecánico. Todos los campos son obligatorios.
-              </p>
-
-              <form id="formularioMecanico">
-                <label for="nombre_mecanico">Nombre Completo *</label>
-                <input type="text" id="nombre_mecanico" name="nombre" required placeholder="Pedro Araya">
-
-                <label for="correo_mecanico">Correo Electrónico *</label>
-                <input type="email" id="correo_mecanico" name="correo" required placeholder="pedro.araya@taller.cl">
-
-                <label for="password_mecanico">Contraseña *</label>
-                <input type="password" id="password_mecanico" name="password" required placeholder="Contraseña Segura">
-
-                <button type="submit" id="btnRegistrarMecanico">Agregar Mecánico</button>
-              </form>
-            </div>
-          </section>
-
-          <section class="listado listado-mecanicos">
-            <div class="card" style="width: 980px; max-width: 90%; margin: 20px auto;">
-              <h3>🧑‍🔧 Lista de Mecánicos Registrados</h3>
-              <table id="tablaMecanicos">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Servicios Activos</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan="4">Presiona la pestaña para cargar los datos.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-        </div>
-
-      </div>
-    </div>
-  </main>
-  <script type="module" src="validar-rut.js"></script>
-  <script type="module" src="conexion.js"></script>
-  <script src="registrar-mecanico.js"></script>
-  
-  <script>
-    (function () {
-      const datos = localStorage.getItem("mecanicoActual");
-      if (!datos) {
-        alert("Debe iniciar sesión como mecánico para usar el sistema.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      let mecanico;
-      try {
-        mecanico = JSON.parse(datos);
-      } catch (e) {
-        console.error("Error al parsear mecanicoActual:", e);
-        localStorage.removeItem("mecanicoActual");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const infoSpan = document.getElementById("info-mecanico-logueado");
-      if (infoSpan && mecanico) {
-        infoSpan.textContent =
-          "Mecánico conectado: " + mecanico.nombre + " (" + mecanico.correo + ")";
-      }
-
-      const btnLogout = document.getElementById("btnLogout");
-      if (btnLogout) {
-        btnLogout.addEventListener("click", function () {
-          if (confirm("¿Desea cerrar sesión?")) {
-            localStorage.removeItem("mecanicoActual");
-            window.location.href = "login.html";
-          }
-        });
-      }
-    })();
-  </script>
+    </footer>
 </body>
+
 </html>

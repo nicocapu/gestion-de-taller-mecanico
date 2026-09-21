@@ -4,7 +4,7 @@ import {
   getServicio,
   createServicio,
   updateServicio,
-  deleteServicio
+  deleteServicio,
 } from "../controllers/servicios.controller.js"
 import { validarSchema } from "../middlewares/validarSchema.middleware.js"
 import { servicioSchema } from "../schemas/servicios.schemas.js"
@@ -15,5 +15,6 @@ router.get("/Servicio/:id", getServicio)
 router.post("/Servicio", validarSchema(servicioSchema), createServicio)
 router.patch("/Servicio/:id", validarSchema(servicioSchema.partial()), updateServicio)
 router.delete("/Servicio/:id", deleteServicio)
+
 
 export default router
