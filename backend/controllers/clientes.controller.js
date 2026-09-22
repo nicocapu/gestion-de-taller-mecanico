@@ -66,7 +66,7 @@ export const updateCliente = async (req, res, next ) => {
 
 export const deleteCliente = async (req, res, next) => {
   try {
-    const [result] = await pool.query("DELETE FROM Cliente WHERE Rut = ?", [req.params.Rut])
+    const [result] = await pool.query("DELETE FROM Cliente WHERE IdCliente = ?", [req.params.id])
 
     if (result.affectedRows <= 0) return res.status(404).json({ message: "Cliente no encontrado" })
 

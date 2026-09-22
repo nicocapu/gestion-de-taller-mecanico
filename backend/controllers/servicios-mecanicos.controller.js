@@ -42,24 +42,27 @@ export const getServiciosByMecanico = async (req, res, next) => {
     const { idMecanico } = req.params;
 
     const [rows] = await pool.query(`
-      SELECT 
-        s.IdServicio,
-        s.FechaInicio,
-        s.FechaTermino,
-        s.DescripcionProblema,
-        s.Diagnostico,
-        s.Estado,
-        s.Precio,
-        c.Rut AS RutCliente,
-        c.Nombre AS NombreCliente,
-        a.Patente,
-        a.Modelo
-      FROM ServicioMecanico sm
-      INNER JOIN Servicio s ON sm.IdServicio = s.IdServicio
-      INNER JOIN Auto a ON s.IdAuto = a.IdAuto
-      INNER JOIN Cliente c ON s.IdCliente = c.IdCliente
-      WHERE sm.IdMecanico = ?
-      ORDER BY s.FechaInicio DESC
+            SELECT 
+            s.IdServicio,
+            s.FechaInicio,
+            s.FechaTermino,
+            s.DescripcionProblema,
+            s.Diagnostico,
+            s.Estado,
+            s.Precio,
+            c.Rut AS RutCliente,
+            c.Nombre AS NombreCliente,
+            a.Patente,
+            a.Modelo,
+            m.Nombre AS NombreMecanico,
+            m.Especialidad AS EspecialidadMecanico
+          FROM ServicioMecanico sm
+          INNER JOIN Mecanico m ON sm.IdMecanico = m.IdMecanico
+          INNER JOIN Servicio s ON sm.IdServicio = s.IdServicio
+          LEFT JOIN Auto a ON s.IdAuto = a.IdAuto
+          LEFT JOIN Cliente c ON s.IdCliente = c.IdCliente
+          WHERE sm.IdMecanico = ?
+          ORDER BY s.FechaInicio DESC
     `, [idMecanico]);
 
     res.json(rows);

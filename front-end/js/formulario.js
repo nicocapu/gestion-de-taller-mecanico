@@ -2,7 +2,6 @@ import { cambiarPestanaA } from './tabs.js';
 import { cargarVehiculosEnSelect } from './vehiculos.js';
 
 export function habilitarFormularioVehiculo(nombre, rut, clienteId) {
-    // Transición de formularios dentro de la misma pestaña (Registro)
     document.getElementById('seccionCliente').style.display = 'none'; 
     document.getElementById('seccionVehiculo').style.display = 'block'; 
     
@@ -28,21 +27,45 @@ export function restablecerFormularioVehiculo() {
 }
 
 export function habilitarFormularioServicio() {
-    // Volvemos a mostrar el formulario de cliente (para la próxima vez que registren)
     restablecerFormularioVehiculo(); 
     
-    // CAMBIAR A LA PESTAÑA DE SERVICIOS
     cambiarPestanaA('tab-servicios');
 
-    // Limpia y carga la lista de autos
+   
     document.getElementById('formularioServicio').reset();
     cargarVehiculosEnSelect(); 
 }
 
 export function restablecerFormularioServicio() {
-    document.getElementById('formularioServicio').reset(); 
-    // Volver a la pestaña de registro
-    cambiarPestanaA('tab-registro');
-    // Asegurarse de que muestre el formulario de Cliente
-    restablecerFormularioVehiculo(); 
+  // 1. Limpiar campos del formulario de servicio
+  const formServicio = document.getElementById('formularioServicio');
+  if (formServicio) formServicio.reset();
+
+  // 2. Limpiar inputs ocultos e indicadores
+  const hiddenCliente = document.getElementById('servicio_id_cliente_hidden');
+  const hiddenAuto = document.getElementById('servicio_id_auto_hidden');
+  if (hiddenCliente) hiddenCliente.value = '';
+  if (hiddenAuto) hiddenAuto.value = '';
+
+  const textoCliente = document.getElementById('cliente_asociado_servicio');
+  if (textoCliente) {
+    textoCliente.textContent = 'Cliente asociado: N/A';
+  }
+
+  // 3. Cambiar a la pestaña de registro usando tu función
+  cambiarPestanaA('tab-registro');
+
+  // 4. Asegurar visibilidad del formulario de cliente y ocultar el de vehículo
+  const seccionCliente = document.getElementById('seccionCliente');
+  const seccionVehiculo = document.getElementById('seccionVehiculo');
+
+  if (seccionCliente) {
+    seccionCliente.classList.remove('hidden');
+    seccionCliente.style.display = 'block';
+  }
+  if (seccionVehiculo) {
+    seccionVehiculo.classList.add('hidden');
+    seccionVehiculo.style.display = 'none';
+  }
 }
+

@@ -15,11 +15,12 @@ catch (error) {
 
 }
 }
-export const verificarRol= async (req, res, next) => {
-if (req.user?.ROL!=="admin") {
-res.status(403).json({ message: "Acceso denegado. No tiene permisos para realizar esta acción." })
+export const verificarRol = async (req, res, next) => {
+  if (req.user?.ROL !== "admin") {
+    return res.status(403).json({ 
+      message: "Acceso denegado. No tiene permisos para realizar esta acción." 
+    });
+  }
 
-}
-
-next()
-}
+  next();
+};

@@ -1,6 +1,6 @@
 import { obtenerServiciosPendientes} from './servicios.js';
 import{cargarVehiculosEnSelect} from './vehiculos.js';
-
+import { cargarListaMecanicos } from './registrar-mecanico.js';
 /**
  * Función auxiliar para cambiar a una pestaña específica.
  * @param {string} targetId El ID del contenido de la pestaña ('tab-registro', 'tab-servicios', etc.)

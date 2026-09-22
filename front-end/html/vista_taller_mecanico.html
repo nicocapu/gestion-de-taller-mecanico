@@ -11,7 +11,10 @@
 
   <header class="main-header">
     <div class="container">
-      <a href="inicio.html" class="logo">🛠️ Hamed y Hamed</a>
+      <a href="vista_taller_mecanico.html" class="logo">
+      <img src="/front-end/imagenes/logo-hamed-y-hamed-negro.png" alt="Logo Hamed y Hamed" class="logo-img">
+      <span>Hamed y Hamed</span>
+      </a>
       <nav>
         <a href="#servicios">Servicios</a>
         <a href="#nosotros">Nosotros</a>
@@ -46,6 +49,8 @@
                 <input type="text" id="nombre_cliente" name="nombre" required placeholder="Juan Pérez">
                 <label for="telefono_cliente">Número Telefónico</label>
                 <input type="tel" id="telefono_cliente" name="telefono" placeholder="981234567">
+                <label for="correo_cliente">Correo Electronico</label>
+                <input type="email"  class="for"  id="correo_cliente" name="correo" placeholder="ejemplo@gmail.com">
                 <button type="submit" id="btnRegistrarCliente">Registrar Cliente</button>
               </form>
             </div>
@@ -53,7 +58,7 @@
             <div id="seccionVehiculo" class="card vehiculo-card" style="display: none;">
               <h3> Registro de Vehículo</h3>
               <p class="obligatorios">Complete los datos del vehículo asociado al cliente registrado.</p>
-              <form id="formularioVehiculo" onsubmit="return registrarVehiculo(event)">
+              <form id="formularioVehiculo">
                 <label for="cliente_asociado">Cliente Asociado *</label>
                 <p class="nota-vehiculo" id="cliente_asociado_nombre" style="color: red;">
                   ¡Registre un cliente primero!
@@ -70,7 +75,7 @@
 
                 <button type="submit" id="btnRegistrarVehiculo">Registrar Vehículo y Asignar Servicio</button>
               </form>
-              <button type="button" onclick="restablecerFormularioVehiculo()">
+              <button type="button" id="btn_cancelar_registro">
                 Cancelar y Registrar Nuevo Cliente
               </button>
             </div>
@@ -78,68 +83,104 @@
         </div>
 
         <!-- TAB SERVICIOS -->
-        <div id="tab-servicios" class="tab-pane">
-          <section class="contenedor-formularios">
-            <div id="seccionServicio" class="card servicio-card">
-              <h3>🔧 Asignación de Servicio</h3>
-              <p class="obligatorios">Seleccione el vehículo y describa el problema.</p>
+          <div id="tab-servicios" class="tab-pane">
+            <section class="contenedor-formularios">
+              <div id="seccionServicio" class="card servicio-card">
+                
+                <div class="card-header">
+                  <h3>🔧 Asignación de Servicio</h3>
+                  <p class="subtitulo">Seleccione el vehículo y describa el problema.</p>
+                </div>
 
-              <form id="formularioServicio" onsubmit="return registrarServicio(event)">
-                <input type="hidden" id="servicio_id_cliente_hidden" name="idCliente" required>
-                <input type="hidden" id="servicio_id_auto_hidden" name="idAuto" required>
+                <form id="formularioServicio" onsubmit="return registrarServicio(event)">
+                  <!-- Inputs Ocultos que espera tu Backend -->
+                  <input type="hidden" id="servicio_id_cliente_hidden" name="idCliente" required>
+                  <input type="hidden" id="servicio_id_auto_hidden" name="idAuto" required>
 
-                <label for="select_auto">Seleccionar Vehículo *</label>
-                <select id="select_auto" required onchange="actualizarClienteServicio()">
-                  <option value="">Cargando vehículos...</option>
-                </select>
+                  <div class="form-grid">
+                    <!-- Vehículo con Datalist (Ocupa las 2 columnas) -->
+                    <div class="form-group full-width">
+                      <label for="input_auto">Vehículo / Patente <span class="req">*</span></label>
+                      <input list="lista_vehiculos" id="input_auto" class="form-input" 
+                            placeholder="Escribe o busca patente/modelo (ej: NMMS54)..." 
+                            oninput="seleccionarVehiculoPorDatalist(this.value)" autocomplete="off" required>
+                      
+                      <datalist id="lista_vehiculos">
+                        <!-- Se puebla dinámicamente desde JS -->
+                      </datalist>
 
-                <p class="nota-vehiculo" id="cliente_asociado_servicio" style="color: blue;">
-                  Cliente asociado: N/A
-                </p>
+                      <div id="cliente_asociado_servicio" class="cliente-badge">
+                        Cliente asociado: <em>N/A</em>
+                      </div>
+                    </div>
 
-                <label for="descripcion_problema">Descripción del Problema *</label>
-                <textarea id="descripcion_problema" name="descripcionProblema" required rows="4"
-                  placeholder="Ej: El motor hace un ruido extraño al arrancar."></textarea>
+                    <!-- Problema y Diagnóstico en paralelo -->
+                    <div class="form-group">
+                      <label for="descripcion_problema">Descripción del Problema <span class="req">*</span></label>
+                      <textarea id="descripcion_problema" name="descripcionProblema" class="form-input textarea-input" required rows="3"
+                        placeholder="Ej: El motor hace un ruido extraño al arrancar."></textarea>
+                    </div>
 
-                <label for="diagnostico_inicial">Diagnóstico Inicial</label>
-                <textarea id="diagnostico_inicial" name="diagnostico" rows="2"
-                  placeholder="Opcional: Evaluación rápida del mecánico."></textarea>
+                    <div class="form-group">
+                      <label for="diagnostico_inicial">Diagnóstico Inicial</label>
+                      <textarea id="diagnostico_inicial" name="diagnostico" class="form-input textarea-input" rows="3"
+                        placeholder="Opcional: Evaluación rápida del mecánico."></textarea>
+                    </div>
 
-                <label for="precio_servicio">Precio Estimado (Opcional)</label>
-                <input type="text" id="precio_servicio" name="precio" placeholder="Ej: 150000"
-                  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <!-- Precio y Estado -->
+                    <div class="form-group">
+                      <label for="precio_servicio">Precio Estimado (Opcional)</label>
+                      <div class="input-money-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="text" id="precio_servicio" name="precio" class="form-input with-symbol" placeholder="150000"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                      </div>
+                    </div>
 
-                <label for="estado_servicio">Estado Inicial *</label>
-                <select id="estado_servicio" name="estado" required>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="En Diagnostico">En Diagnóstico</option>
-                  <option value="En Reparacion">En Reparación</option>
-                  <option value="Finalizado">Finalizado</option>
-                </select>
+                    <div class="form-group">
+                      <label for="estado_servicio">Estado Inicial <span class="req">*</span></label>
+                      <select id="estado_servicio" name="estado" class="form-input" required>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Diagnostico">En Diagnóstico</option>
+                        <option value="En Reparacion">En Reparación</option>
+                        <option value="Finalizado">Finalizado</option>
+                      </select>
+                    </div>
 
-                <label for="filtro_especialidad">Filtrar por Especialidad:</label>
-                <select id="filtro_especialidad">
-                  <option value="Todas">-- Todas las especialidades --</option>
-                  <option value="General">General</option>
-                  <option value="Frenos">Frenos</option>
-                  <option value="Motor">Motor</option>
-                  <option value="Electricidad">Electricidad</option>
-                </select>
+                    <!-- Filtro y Asignación de Mecánico -->
+                    <div class="form-group">
+                      <label for="filtro_especialidad">Filtrar por Especialidad:</label>
+                      <select id="filtro_especialidad" class="form-input">
+                        <option value="Todas">-- Todas las especialidades --</option>
+                        <option value="General">General</option>
+                        <option value="Frenos">Frenos</option>
+                        <option value="Motor">Motor</option>
+                        <option value="Electricidad">Electricidad</option>
+                      </select>
+                    </div>
 
-                <label for="selectMecanicoAsignar">Asignar Mecánico *</label>
-                <select id="selectMecanicoAsignar" name="mecanicoAsignado" required>
-                  <option value="">Cargando mecánicos...</option>
-                </select>
+                    <div class="form-group">
+                      <label for="selectMecanicoAsignar">Asignar Mecánico <span class="req">*</span></label>
+                      <select id="selectMecanicoAsignar" name="mecanicoAsignado" class="form-input" required>
+                        <option value="">Cargando mecánicos...</option>
+                      </select>
+                    </div>
+                  </div>
 
-                <button type="submit" id="btnRegistrarServicio">Asignar Servicio</button>
-              </form>
+                  <!-- Botones de Acción -->
+                  <div class="form-actions">
+                    <button type="button" id="btnCancelarServicio"  class="btn-secundario">
+                      Cancelar
+                    </button>
+                    <button type="submit" id="btnRegistrarServicio" class="btn-principal">
+                      Asignar Servicio
+                    </button>
+                  </div>
+                </form>
 
-              <button type="button" onclick="restablecerFormularioServicio()">
-                Cancelar y Volver al Inicio
-              </button>
-            </div>
-          </section>
-        </div>
+              </div>
+            </section>
+          </div>
 
         <!-- TAB LISTADO -->
         <div id="tab-listado" class="tab-pane">
@@ -150,13 +191,14 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Fecha Ingreso</th>
-                  <th>Cliente (RUT)</th>
-                  <th>Vehículo (Patente)</th>
+                  <th>Fecha</th>
+                  <th>Cliente</th>
+                  <th>Vehículo</th>
+                  <th>Mecánico</th>
                   <th>Problema</th>
-                  <th>Precio Est.</th>
+                  <th>Precio</th>
                   <th>Estado</th>
-                  <th>Acción</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -227,11 +269,12 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Servicios Activos</th>
+                    <th>Rol / Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan="4">Presiona la pestaña para cargar los datos.</td>
+                    <td colspan="5">Presiona la pestaña para cargar los datos.</td>
                   </tr>
                 </tbody>
               </table>
@@ -245,7 +288,8 @@
   <script type="module" src="/front-end/js/validar-rut.js"></script>
   <script type="module" src="/front-end/js/tabs.js"></script>
   <script type="module" src="/front-end/js/conexion.js"></script>
-  <script src="/front-end/js/registrar-mecanico.js"></script>
+  <script type= "module"  src="/front-end/js/registrar-mecanico.js"></script>
+  <script type="module" src="/front-end/js/vehiculos.js"></script>
   <script>
   (function () {
     const token = localStorage.getItem("token");

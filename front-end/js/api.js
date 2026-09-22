@@ -6,6 +6,7 @@ export const ENDPOINTS = {
         ServiciosMecanicos: `${API_BASE_URL}/ServicioMecanico`,
         Mecanicos: `${API_BASE_URL}/Mecanico`,
         Login: `${API_BASE_URL}/signin`,
+        ServiciosMecanicosTodos:`${API_BASE_URL}/ServicioMecanico/todos`
 }
 export async function apifetch(url, options = {}) {
     const token = localStorage.getItem('token');

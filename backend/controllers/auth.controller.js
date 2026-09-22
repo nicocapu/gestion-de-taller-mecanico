@@ -14,7 +14,7 @@ export const signin = async(req, res) => {
         if (!contraseñavalidada) return res.status(401).json({ message: "Contraseña incorrecta" })
         const token = jwt.sign({ id: usuario.IdMecanico, ROL: usuario.Rol }, process.env.JWT_SECRET, { expiresIn: "16h" })
         res.status(200).json({ token,
-        idMecanico: usuario.IdMecanico,  })
+        idMecanico: usuario.IdMecanico, rol: usuario.Rol  })
 
     } catch (error) {
         res.status(500).json({ message: "Error al iniciar sesión", error: error.message })

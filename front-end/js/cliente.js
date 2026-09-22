@@ -1,4 +1,5 @@
 import { habilitarFormularioVehiculo, restablecerFormularioVehiculo, habilitarFormularioServicio, restablecerFormularioServicio } from './formulario.js';
+import { validarRut } from './validar-rut.js'; 
 import { ENDPOINTS, apifetch } from './api.js';
 export async function registrarCliente(event) {
     event.preventDefault(); 
@@ -10,6 +11,7 @@ export async function registrarCliente(event) {
     const rut = document.getElementById('rut_cliente').value.trim();
     const nombre = document.getElementById('nombre_cliente').value.trim();
     const telefonoFrontend = document.getElementById('telefono_cliente').value.trim();
+    const correo= document.getElementById('correo_cliente').value.trim()
     
     if (!validarRut(rut)) {
         alert('❌ Error: El RUT no tiene el formato correcto (Ej: 12.345.678-9). No se permiten letras ni formatos incorrectos.');
@@ -30,7 +32,7 @@ export async function registrarCliente(event) {
     Rut: rut,
     Nombre: nombre,
     NumeroTelefonico: telefonoFrontend,
-    CorreoElectronico: "cliente@sinregistro.cl"
+    CorreoElectronico: correo
     };
 
     try {

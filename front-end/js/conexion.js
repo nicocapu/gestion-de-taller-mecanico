@@ -1,22 +1,14 @@
-const API_CLIENTES_URL = 'http://localhost:3000/Cliente'; 
-const API_VEHICULOS_URL = 'http://localhost:3000/Auto'; 
-const API_SERVICIOS_URL = 'http://localhost:3000/Servicio'; 
-//const API_SERVICIOS_PENDIENTES_URL = 'http://localhost:3000/ServicioMecanico/Mecanico/:idMecanico'; 
-const API_SERVICIOS_PATENTE_URL = 'http://localhost:3000/Servicio/patente';
 
-
-const token = localStorage.getItem('token');
-import { validarRut } from './validar-rut.js';
-import { validarPatente } from './validar-patente.js';
 import { setupTabs } from './tabs.js'
 import { registrarVehiculo } from './vehiculos.js';
 import {editarDetalleRapido, actualizarEstadoRapido, eliminarServicioPorId, registrarServicio
-    ,actualizarClienteServicio, obtenerServiciosPendientes}
+    ,actualizarClienteServicio, obtenerServiciosPendientes,
+    actualizarServicio}
  from './servicios.js';
-import {habilitarFormularioVehiculo, restablecerFormularioVehiculo, habilitarFormularioServicio, restablecerFormularioServicio} from './formulario.js';
-import {cambiarPestanaA} from './tabs.js';
 import {registrarCliente} from './cliente.js';
-import {} from './vistas.js';
+import {cargarOpcionesMecanicos, alternarRolMecanico} from './registrar-mecanico.js'
+import { restablecerFormularioServicio } from './formulario.js';
+import  './notificaciones.js'
 
 
 
@@ -27,8 +19,11 @@ window.registrarServicio = registrarServicio;
 window.editarDetalleRapido = editarDetalleRapido; 
 window.actualizarEstadoRapido = actualizarEstadoRapido; // (ya existe)
 window.eliminarServicioPorId = eliminarServicioPorId; // (debería añadirse también)
-// 4. Funciones de Asignación de Servicio
 window.actualizarClienteServicio = actualizarClienteServicio;
+window.actualizarServicio= actualizarServicio;
+window.alternarRolMecanico= alternarRolMecanico;
+window.registrarVehiculo = registrarVehiculo;
+window.restablecerFormularioServicio= restablecerFormularioServicio;
 // =================================================================
 // INICIALIZACIÓN
 // =================================================================
@@ -59,5 +54,9 @@ function inicializarEventos() {
     } else {
         console.warn("⚠️ registrar-mecanico.js no se ha cargado o falta la función cargarOpcionesMecanicos");
     }
+    const btnCancelar = document.getElementById('btnCancelarServicio');
+if (btnCancelar) {
+  btnCancelar.addEventListener('click', restablecerFormularioServicio);
+}
 }
 window.addEventListener('DOMContentLoaded', inicializarEventos);

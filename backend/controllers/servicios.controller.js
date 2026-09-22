@@ -22,6 +22,19 @@ export const getServicio = async (req, res, next) => {
 export const createServicio = async (req, res, next) => {
   try {
     const { IdCliente, IdAuto, FechaInicio, FechaTermino, DescripcionProblema, Diagnostico, Estado, Precio } = req.body
+    
+    const [serviciosActivos] = await pool.query(
+      `SELECT IdServicio, Estado 
+       FROM Servicio 
+       WHERE IdAuto = ? AND Estado NOT IN ('Finalizado', 'Cancelado')`,
+      [IdAuto]
+    )
+
+    if (serviciosActivos.length > 0) {
+      return res.status(409).json({
+        error: `El vehículo ya tiene un servicio activo (#${serviciosActivos[0].IdServicio} en estado "${serviciosActivos[0].Estado}"). Debe finalizarse antes de registrar uno nuevo.`
+      })
+    }
     const [rows] = await pool.query(
       `INSERT INTO Servicio(IdCliente, IdAuto, FechaInicio, FechaTermino, DescripcionProblema, Diagnostico, Estado, Precio) 
        VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,

@@ -1,3 +1,23 @@
+ :root {
+  --color-principal: #f5a623;
+  --color-principal-hover: #e09612;
+  --color-texto-boton: #1f2937;
+  --color-borde: #cbd5e1;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+.logo-img {
+    max-height: 80px;
+    width: auto;
+}
  .contenedor-formularios {
       display: flex;
       justify-content: center;
@@ -39,9 +59,9 @@
       border-bottom: 3px solid transparent;
     }
     .tab-btn.active {
-      color: #007bff;
+      color: #1f2937;
       background-color: #fff;
-      border-bottom: 3px solid #007bff;
+      border-bottom: 3px solid #1f2937;
     }
     .tab-pane {
       padding: 20px;
@@ -100,16 +120,20 @@
     }
     #formularioMecanico input[type="text"],
     #formularioMecanico input[type="email"],
-    #formularioMecanico input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
+    #formularioMecanico input[type="password"],
+    #formularioMecanico select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
     #formularioMecanico button {
-      background-color: #28a745;
+      background-color:var(--color-principal);
       color: white;
       padding: 10px 15px;
       border: none;
@@ -135,4 +159,200 @@
 
 .status-alert {
   color: #dc3545;
+}
+.contenedor-formularios {
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+.servicio-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  max-width: 760px;
+  width: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.card-header {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+.card-header .subtitulo {
+  margin: 4px 0 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Grid layout de 2 columnas */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-group .req {
+  color: #ef4444;
+}
+
+/* Inputs, Selects y Textareas unificados */
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  color: #1e293b;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-input:hover {
+  background-color: #ffffff;
+  border-color: #94a3b8;
+}
+
+.form-input:focus {
+  background-color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Flecha limpia en Selects */
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.textarea-input {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.4;
+}
+
+/* Input con símbolo de dinero */
+.input-money-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 12px;
+  font-weight: 600;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.form-input.with-symbol {
+  padding-left: 26px;
+}
+
+/* Badge del cliente asociado */
+.cliente-badge {
+  font-size: 0.82rem;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+/* Botones de acción alineados */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-principal {
+  background: var(--color-principal);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-principal:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-secundario {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secundario:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  .btn-principal, .btn-secundario {
+    width: 100%;
+  }
 }

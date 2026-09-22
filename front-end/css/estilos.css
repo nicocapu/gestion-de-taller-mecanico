@@ -1,7 +1,8 @@
 :root {
-    --color-principal: #007bff; /* Azul */
-    --color-fondo: #f8f9fa; /* Gris claro */
-    --color-texto: #333;
+--color-principal: #f5a623;  
+    --color-principal-hover: #e09612; 
+    --color-fondo: #f8f9fa;
+    --color-texto: #1f2937;           
     --color-borde: #ddd;
 }
 
@@ -312,7 +313,9 @@ label {
 }
 
 input[type="text"], 
-input[type="tel"] {
+input[type="tel"],
+input[type="email"],
+input[type="password"]{
     width: 95%;
     padding: 10px;
     margin-top: 5px;
@@ -335,7 +338,7 @@ button {
 }
 
 button:hover:not([disabled]) {
-    background-color: #0056b3;
+    background-color: var(--color-principal-hover, #e09612);
 }
 
 button[disabled] {

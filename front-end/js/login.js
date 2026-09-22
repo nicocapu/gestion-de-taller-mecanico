@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             localStorage.setItem('token', data.token);
             localStorage.setItem('idMecanico', data.idMecanico);
+            localStorage.setItem('rol', data.rol);
             window.location.href = './vista_taller_mecanico.html';
         } catch (error) {
             console.error('Error en login:', error);
