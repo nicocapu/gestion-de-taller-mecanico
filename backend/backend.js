@@ -17,7 +17,7 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 import conexiondb from "./conexionDB.js";
 app.use(express.json());
 app.use(cors());
@@ -31,5 +31,5 @@ app.use(EstadoVehiculoRoutes);
 app.use(SigninRoutes);
 app.use(manejadorErrores);
 app.listen(port, () => {
-  console.log(`🚀 Servidor backend ejecutándose en http://localhost:${port}`);
+  console.log(` Servidor backend ejecutándose en http://localhost:${port}`);
 });
