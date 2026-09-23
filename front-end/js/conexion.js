@@ -6,7 +6,7 @@ import {editarDetalleRapido, actualizarEstadoRapido, eliminarServicioPorId, regi
     actualizarServicio}
  from './servicios.js';
 import {registrarCliente} from './cliente.js';
-import {cargarOpcionesMecanicos, alternarRolMecanico} from './registrar-mecanico.js'
+import {cargarOpcionesMecanicos, alternarRolMecanico,eliminarMecanico} from './registrar-mecanico.js'
 import { restablecerFormularioServicio } from './formulario.js';
 import  './notificaciones.js'
 
@@ -24,6 +24,7 @@ window.actualizarServicio= actualizarServicio;
 window.alternarRolMecanico= alternarRolMecanico;
 window.registrarVehiculo = registrarVehiculo;
 window.restablecerFormularioServicio= restablecerFormularioServicio;
+window.eliminarMecanico = eliminarMecanico;
 // =================================================================
 // INICIALIZACIÓN
 // =================================================================

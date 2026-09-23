@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL =  'https://gestion-de-taller-mecanico-production.up.railway.app';
 export const ENDPOINTS = {
         Clientes: `${API_BASE_URL}/Cliente`,
         Vehiculos: `${API_BASE_URL}/Auto`,

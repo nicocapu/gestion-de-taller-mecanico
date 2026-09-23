@@ -76,7 +76,7 @@ export async function cargarListaMecanicos() {
     const tbody = document.querySelector('#tablaMecanicos tbody');
     if (!tbody) return;
 
-    tbody.innerHTML = '<tr><td colspan="5">Cargando...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6">Cargando...</td></tr>';
 
     try {
         const response = await apifetch(ENDPOINTS.Mecanicos);
@@ -84,7 +84,7 @@ export async function cargarListaMecanicos() {
 
         tbody.innerHTML = '';
         if (!mecanicos || mecanicos.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">No hay mecánicos registrados.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6">No hay mecánicos registrados.</td></tr>';
             return;
         }
 
@@ -103,27 +103,37 @@ export async function cargarListaMecanicos() {
             // Columna 3: Estado / Servicios
             row.insertCell(3).textContent = "Activo";
 
-            // Columna 4: Botón Cambiar Rol
-            const cellRol = row.insertCell(4);
+            // Columna 4: Acciones (Rol + Eliminar)
+            const cellAcciones = row.insertCell(4);
             const textoBoton = esAdmin ? '⬇️ Pasar a Mecánico' : '⬆️ Ascender a Admin';
             const colorBoton = esAdmin ? '#6c757d' : '#28a745';
             const badgeRol = esAdmin 
                 ? '<span style="background:#e8f4fd; color:#0d6efd; padding:2px 6px; border-radius:4px; font-size:0.85em; font-weight:bold; margin-right:8px;">ADMIN</span>'
                 : '<span style="background:#e9ecef; color:#495057; padding:2px 6px; border-radius:4px; font-size:0.85em; font-weight:bold; margin-right:8px;">MECÁNICO</span>';
 
-            cellRol.innerHTML = `
-                ${badgeRol}
-                <button 
-                    onclick="alternarRolMecanico(${id}, '${rolActual}')"
-                    style="background-color: ${colorBoton}; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 0.8em;">
-                    ${textoBoton}
-                </button>
+            cellAcciones.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    ${badgeRol}
+                    <button 
+                        type="button"
+                        onclick="alternarRolMecanico(${id}, '${rolActual}')"
+                        style="background-color: ${colorBoton}; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 0.8em;">
+                        ${textoBoton}
+                    </button>
+                    <button 
+                        type="button"
+                        onclick="eliminarMecanico(${id})"
+                        style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 0.8em;"
+                        title="Eliminar mecánico">
+                        🗑️ Despedir
+                    </button>
+                </div>
             `;
         });
 
     } catch (error) {
         console.error("Error cargando mecánicos:", error);
-        tbody.innerHTML = '<tr><td colspan="5" style="color:red;">Error al cargar datos.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="color:red;">Error al cargar datos.</td></tr>';
     }
 }
 
@@ -193,4 +203,26 @@ export async function alternarRolMecanico(idMecanico, rolActual) {
         console.error('Error al cambiar rol:', err);
         alert('❌ Error de conexión al actualizar el rol.');
     }
+}
+
+export async function eliminarMecanico(idMecanico) {
+  const confirmacion = confirm("¿Estás seguro de que deseas eliminar este mecánico? Esta acción no se puede deshacer.");
+  if (!confirmacion) return;
+
+  try {
+    const respuesta = await apifetch(`ENDPOINTS.Mecanico/${idMecanico}`, {
+      method: 'DELETE'
+    });
+
+    if (!respuesta.ok) {
+      const errorData = await respuesta.json().catch(() => ({}));
+      throw new Error(errorData.message || 'No se pudo eliminar el mecánico.');
+    }
+
+    alert("Mecánico eliminado exitosamente.");
+    cargarListaMecanicos(); // Recarga la tabla o lista en pantalla
+  } catch (error) {
+    console.error("Error al eliminar mecánico:", error);
+    alert(error.message || "Error de conexión al intentar eliminar.");
+  }
 }

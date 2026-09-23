@@ -1,29 +1,46 @@
-const API_LOGIN_MECANICOS_URL = 'http://localhost:3000/signin';
-
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('formLogin');
-    const mensajeError = document.getElementById('mensaje-error-login');
-    const btnLogin = document.getElementById('btnLogin');
+    const formLogin = document.querySelector('form');
+    const inputCorreo = document.querySelector('input[type="email"], input[name="correo"], #correo') || document.querySelectorAll('input')[0];
+    const inputPassword = document.querySelector('input[type="password"], input[name="password"], #password') || document.querySelectorAll('input')[1];
+    const btnLogin = document.querySelector('button[type="submit"]') || document.querySelector('.btn-ingresar') || document.querySelector('button');
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        mensajeError.textContent = '';
+    // Contenedor para mensajes de error si no existe en el HTML
+    let mensajeError = document.getElementById('mensaje-error');
+    if (!mensajeError && formLogin) {
+        mensajeError = document.createElement('p');
+        mensajeError.id = 'mensaje-error';
+        mensajeError.style.color = '#dc2626';
+        mensajeError.style.fontSize = '0.9rem';
+        mensajeError.style.marginTop = '10px';
+        mensajeError.style.textAlign = 'center';
+        formLogin.appendChild(mensajeError);
+    }
 
-        const correo = document.getElementById('correo_login').value.trim();
-        const password = document.getElementById('password_login').value.trim();
+    if (!formLogin) return;
+
+    formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const correo = inputCorreo ? inputCorreo.value.trim() : '';
+        const password = inputPassword ? inputPassword.value : '';
 
         if (!correo || !password) {
-            mensajeError.textContent = 'Debe ingresar correo y contraseña.';
+            mensajeError.textContent = 'Por favor complete todos los campos.';
             return;
         }
 
-        btnLogin.disabled = true;
-        btnLogin.textContent = 'Ingresando...';
+        if (btnLogin) {
+            btnLogin.disabled = true;
+            btnLogin.textContent = 'Ingresando...';
+        }
+        mensajeError.textContent = '';
 
         try {
-            const response = await fetch(API_LOGIN_MECANICOS_URL, {
+            const response = await fetch("https://gestion-de-taller-mecanico-production.up.railway.app/signin", {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ 
                     Correo: correo, 
                     Contrasenia: password 
@@ -48,9 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error en login:', error);
             mensajeError.textContent = 'Error de conexión con el servidor.';
         } finally {
-            btnLogin.disabled = false;
-            btnLogin.textContent = 'Ingresar';
+            if (btnLogin) {
+                btnLogin.disabled = false;
+                btnLogin.textContent = 'Ingresar';
+            }
         }
     });
 });
-
