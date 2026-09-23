@@ -3,7 +3,7 @@
 Aplicación web integral diseñada para digitalizar y optimizar la operativa diaria de un taller mecánico automotriz. Permite administrar el ingreso de clientes y vehículos, la asignación dinámica de mecánicos y el seguimiento de órdenes de trabajo en tiempo real mediante una interfaz intuitiva conectada a una API REST modular.
 
 <!-- Reemplaza con el enlace a tu frontend desplegado si ya lo tienes -->
-🚀 **Demo en vivo:** [https://tu-proyecto.vercel.app](https://tu-proyecto.vercel.app)
+🚀 **Demo en vivo:** [https://resplendent-dusk-edda4a.netlify.app](https://tu-proyecto.vercel.app)
 
 <!-- Badges de tecnologías -->
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
