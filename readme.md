@@ -68,7 +68,7 @@ Para facilitar la evaluación y navegación dentro del portal privado (`Acceso M
 
 | Rol | Correo / Usuario | Contraseña | Permisos / Alcance |
 | :--- | :--- | :--- | :--- |
-| **Administrador** | `admin@taller.com` | `admin1234` | Gestión global, registro de mecánicos, asignación y vista de órdenes |
+| **Administrador** | `admin@taller.com` | `admin123` | Gestión global, registro de mecánicos, asignación y vista de órdenes |
 | **Mecánico** | `juan.perez@gmail.com` | `JuanPassword1` | Vista y asignacion de órdenes asignadas y actualización de estados |
 ---
 
